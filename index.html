@@ -6,6 +6,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="./CSS/style.css">
+	<link rel="stylesheet" href="./CSS/ContactForm.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <body>
@@ -30,14 +32,22 @@
     		<div class="project-tile tile4">Project 4</div>
     	</section>
 
-		<div id='contact-form-container'>
-			<form id="contactform" action="https://formsubmit.io/send/tomcvirgo@gmail.com" method="POST">
-				<input name="name" type="text" id="name">
-				<input name="email" type="email" id="email">
-				<textarea name="comment" id="comment" rows="3"></textarea>
+		<div id='contact-form-container' class="form-container">
+			<form id="contactform" action="https://formsubmit.io/send/tomcvirgo@gmail.com" method="POST" class="form">
+
+				<h2 class="contact-me">Contact Me</h2>
+
+				<label for="name">Name:</label>
+				<input name="name" type="text" id="name" class="input" required placeholder="put your name here...">
+
+				<label for="email">Email:</label>
+				<input name="email" type="email" id="email" class="input" required placeholder="add your email address so I can respond to your message...">
+
+				<label for="comment">Message:</label>
+				<textarea name="comment" id="comment" rows="3" class="input" required  placeholder="ask to arrange a call or give some feedback on my portfolio and projects..."></textarea>
 				<!-- to avoid spam by bots -->
 				<input name="_formsubmit_id" type="text" style="display:none">
-				<input value="Submit" type="submit">
+				<input value="Send Message" type="submit" class="submit-button">
 			</form>
 		</div>
 
