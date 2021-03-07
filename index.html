@@ -2,137 +2,20 @@
 <html>
   <head>
     <!-- metadata elements, link, title, style -->
-    <title>Practice Portfolio</title>
+    <title>Thomas Virgo</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-
-    <style type="text/css">
-    	body {
-    		margin: 0;
-    		font-family: Oswald, sans-serif;
-    	}
-
-    	.nav {
-    		position: fixed;
-    		width: 100%;
-    		height: 80px;
-    		background-color: #AAA;
-    		top: 0;
-    		left: 0;
-    	}
-
-    	.nav a {
-    		display: inline-block;
-    		color: black;
-    		margin: 20px;
-    		float: right;
-    	}
-
-    	.nav a:hover {
-    		color: #FFF;
-    	}
-
-    	.welcome {
-    		display: flex;
-    		justify-content: center;
-    		align-items: center;
-    		height: 100vh;
-    		background-color: hsl(0, 100%, 34%);
-    	}
-    	.welcome h1 {
-    		color: white;
-    		text-align: center;
-    		font-size: 40px;
-    	}
-
-    	.projects {
-    		display: grid;
-    		grid-template-columns: repeat(4, 1fr);
-    		grid-template-rows: 100px repeat(2, 200px); 
-    		background-color: turquoise;
-    		grid-gap: 20px;
-    		text-align: center;
-    		padding-bottom: 20px;
-    		grid-template-areas: 
-    		"intro intro intro intro"
-    		". tile1 tile2 ."
-    		". tile3 tile4 .";
-    	}
-
-    	.project-intro {
-    		background-color: transparent;
-    		color: white;
-    		grid-area: intro;
-    		text-align: center;
-    		font-size: 40px;
-    	}
-
-    	.project-tile {
-    		border-style: solid;
-    	}
-
-    	.tile1 {
-    		border-style: solid;
-    		grid-area:tile1;
-    	}
-    	.tile2 {
-    		border-style: solid;
-    		grid-area:tile2;
-    	}
-    	.tile3 {
-    		border-style: solid;
-    		grid-area:tile3;
-    	}
-    	.tile4 {
-    		border-style: solid;
-    		grid-area:tile4;
-    	}
-
-    	.footer-link {
-    		width: 100%;
-    		background-color: hsl(231, 100%, 14%);
-    		height: 100px;
-    		color: white;
-    		text-align: center;
-    		padding-top: 30px;
-    	}
-
-    	.footer-link a {
-    		color: yellow;
-    	}
-
-    	.footer-link a:hover {
-    		color: white;
-    	}
-
-    	@media (max-width: 800px) {
-
-    	.projects {
-    		display: grid;
-    		grid-template-columns: repeat(3, 1fr);
-    		grid-template-rows: 100px repeat(4, 150px); 
-    		background-color: turquoise;
-    		grid-gap: 20px;
-    		text-align: center;
-    		padding-bottom: 20px;
-    		grid-template-areas: 
-    		"intro intro intro "
-    		". tile1 ."
-    		". tile2 ."
-    		". tile3 ."
-    		". tile4 .";
-    	}
-
-    	}
-    </style>
+	<link rel="stylesheet" href="./CSS/style.css">
   </head>
+
   <body>
-    <!-- page contents -->
     <main>
 
     	<nav id="navbar" class="nav">
     		<a href="#projects">Projects</a>
-    		<a href="#profile-link">Contact Me</a>
+    		<a href="#profile-link">Contact</a>
+			<a href = '#'>About Me</a>
+
     	</nav>
 
     	<section id="welcome-section" class="welcome">
@@ -146,6 +29,17 @@
     		<div class="project-tile tile3">Project 3</div>
     		<div class="project-tile tile4">Project 4</div>
     	</section>
+
+		<div id='contact-form-container'>
+			<form id="contactform" action="https://formsubmit.io/send/tomcvirgo@gmail.com" method="POST">
+				<input name="name" type="text" id="name">
+				<input name="email" type="email" id="email">
+				<textarea name="comment" id="comment" rows="3"></textarea>
+				<!-- to avoid spam by bots -->
+				<input name="_formsubmit_id" type="text" style="display:none">
+				<input value="Submit" type="submit">
+			</form>
+		</div>
 
     	<footer class="footer-link">
     		<a href="https://www.freecodecamp.org/tomvirgo" id="profile-link" target="_blank">FreeCodeCamp</a>
