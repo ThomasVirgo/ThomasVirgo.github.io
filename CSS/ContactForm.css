@@ -31,6 +31,7 @@
     resize:none;
     border:0;
     border-bottom:2px solid #bebed2;
+    font-family: Oswald, sans-serif;
 }
 
 .input:focus{

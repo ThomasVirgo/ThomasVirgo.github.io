@@ -23,6 +23,11 @@ body {
     color: #FFF;
 }
 
+.nav h1{
+    display: inline-block;
+    margin-left: 20px;
+}
+
 .welcome {
     display: flex;
     justify-content: center;
@@ -94,6 +99,10 @@ body {
 
 .footer-link a:hover {
     color: white;
+}
+
+.link {
+    margin: 20px;
 }
 
 @media (max-width: 800px) {
