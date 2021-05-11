@@ -1,9 +1,9 @@
 let grid;
 let cellSize = 20;
-let width = window.innerWidth;
-let height = window.innerHeight;
-let rows = Math.floor(height/cellSize)/2;
-let cols = Math.floor(width/cellSize)/2;
+let width = window.innerWidth/2;
+let height = window.innerHeight/2;
+let rows = Math.floor(height/cellSize);
+let cols = Math.floor(width/cellSize);
 
 let mazeBtn = document.getElementById('maze-btn');
 mazeBtn.addEventListener('click', ()=>generateMaze());
@@ -123,6 +123,7 @@ const generateMaze = () => {
 
 function setup() {
     let canvas = createCanvas(width, height);
+    canvas.center();
     generateMaze();
 }
   
