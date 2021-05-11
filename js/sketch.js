@@ -1,15 +1,30 @@
-let grid;
-let cellSize = 20; //add slider for this to change the difficulty
-let width = window.innerWidth/2;
-let height = window.innerHeight/2;
-let rows = Math.floor(height/cellSize);
-let cols = Math.floor(width/cellSize);
+let grid, cellSize, width, height, rows, cols, playerPos, currentNode, searching;
+cellSize=20;
+width = window.innerWidth/2;
+height = window.innerHeight/2;
+rows = Math.floor(height/cellSize);
+cols = Math.floor(width/cellSize);
 if (rows % 2 == 0){rows ++}
 if (cols % 2 == 0){cols ++}
-let playerPos = [1,1]; //[row,col]
 
 let mazeBtn = document.getElementById('maze-btn');
 mazeBtn.addEventListener('click', ()=>generateMaze());
+
+let difficulty = document.getElementById('difficulty');
+difficulty.addEventListener('change', updateDifficulty);
+
+let find = document.getElementById('find');
+find.addEventListener('click', search);
+
+function search(){
+    searching = true;
+    frameRate(100);
+};
+
+function updateDifficulty(){
+    cellSize = 35-difficulty.value;
+    generateMaze();
+}
 
 
 class Node {
@@ -45,6 +60,12 @@ class Node {
 
 const createGrid = () => {
     grid = [];
+    width = window.innerWidth/2;
+    height = window.innerHeight/2;
+    rows = Math.floor(height/cellSize);
+    cols = Math.floor(width/cellSize);
+    if (rows % 2 == 0){rows ++}
+    if (cols % 2 == 0){cols ++}
     for (let i=0; i<rows; i++){
         grid.push([]);
         for (let j=0; j<cols; j++){
@@ -62,11 +83,22 @@ const isInGrid = (i,j) => {
 }
 
 const generateMaze = () => {
+    clear();
     createGrid();
-    playerPos = [1,1];
+    frameRate(20);
+    width = window.innerWidth/2;
+    height = window.innerHeight/2;
+    rows = Math.floor(height/cellSize);
+    cols = Math.floor(width/cellSize);
+    if (rows % 2 == 0){rows ++}
+    if (cols % 2 == 0){cols ++}
+    playerPos = [1,1]; //[row,col]
     fill('blue');
     rect(1*cellSize, 1*cellSize, cellSize, cellSize);
     grid[1][1]['player']=true;
+    grid[1][1]['current']=true;
+    grid[1][1]['distance']=0;
+    currentNode = grid[1][1];
     fill('green');
     rect((cols-2)*cellSize,(rows-2)*cellSize, cellSize, cellSize);
     grid[rows-2][cols-2]['end']=true;
@@ -143,36 +175,10 @@ function movePlayer(i,j){
     }
 }
 
-function keyPressed(){
-    // if (keyIsDown){
-    //    if (keyCode === LEFT_ARROW){
-    //     console.log('left arrow pressed')
-    //     let [i,j] = [playerPos[0], playerPos[1]-1];
-    //     movePlayer(i,j);
-    //     }
-    //     if (keyCode === RIGHT_ARROW){
-    //         console.log('right arrow pressed')
-    //         let [i,j] = [playerPos[0], playerPos[1]+1];
-    //         movePlayer(i,j);
-    //     }
-    //     if (keyCode === UP_ARROW){
-    //         console.log('up arrow pressed')
-    //         let [i,j] = [playerPos[0]-1, playerPos[1]];
-    //         movePlayer(i,j);
-    //     }
-    //     if (keyCode === DOWN_ARROW){
-    //         console.log('down arrow pressed')
-    //         let [i,j] = [playerPos[0]+1, playerPos[1]];
-    //         movePlayer(i,j);
-    //     } 
-    // }
-}
-
-function keyReleased(){
-    console.log('released key')
-}
 
 function setup() {
+    width = window.innerWidth/2;
+    height = window.innerHeight/2;
     let canvas = createCanvas(width, height);
     frameRate(20);
     canvas.center();
@@ -183,7 +189,6 @@ function draw() {
     if (keyIsDown(LEFT_ARROW)){
         let [i,j] = [playerPos[0], playerPos[1]-1];
         movePlayer(i,j);
-        console.log('left arrow down')
     }
     if (keyIsDown(RIGHT_ARROW)){
         let [i,j] = [playerPos[0], playerPos[1]+1];
@@ -196,6 +201,93 @@ function draw() {
     if (keyIsDown(DOWN_ARROW)){
         let [i,j] = [playerPos[0]+1, playerPos[1]];
         movePlayer(i,j);
+    }  
+
+    //Dijkstra Algorithm
+    if (searching){
+        for (let i=0; i<rows; i++){
+        let searchRow = grid[i];
+        let test = searchRow.find(element => element.current == true)
+        if (test){
+            currentNode = test;
+        }
     }
-    
+
+
+    let idx1 = currentNode.rowIdx;
+    let idx2 = currentNode.colIdx;
+    let idxToCheck = [[idx1+1, idx2], [idx1-1, idx2], [idx1, idx2 +1], [idx1, idx2-1]];
+    for (let entry in idxToCheck){
+        let currRowIdx = idxToCheck[entry][0];
+        let currColIdx = idxToCheck[entry][1];
+        if (currRowIdx>=0 && currRowIdx<rows && currColIdx >=0 && currColIdx<cols){
+            let checkNode = grid[currRowIdx][currColIdx];
+            if (checkNode.visited == true || checkNode.obstacle == true){continue}; //no need to revisit nodes
+            checkNode.checked = true;
+
+            if (checkNode.end != true){
+                let c = color(50, 55, 100);
+                fill(c);
+                rect(currColIdx*cellSize, currRowIdx*cellSize, cellSize, cellSize);
+            }
+            
+            let testDistance = currentNode.distance + 1;
+            if (testDistance < checkNode.distance){
+                checkNode.distance = testDistance;
+            } 
+        }
+    }
+    // mark the current node as visited and no longer the current node.
+    currentNode.visited = true;
+    currentNode.current = false;
+    // check if current node is the end node and hence search is complete
+    if (currentNode.end == true){
+        console.log('complete');
+        searching = false;
+        let shortestPath = [];
+        let pathNode = currentNode;
+        shortestPath.push(currentNode);
+        let counter = 0;
+        while (pathNode.distance){
+            counter ++;
+            let currentDistance = pathNode.distance;
+            let x = pathNode.colIdx;
+            let y = pathNode.rowIdx;
+            let potentialParents = [[y,x-1], [y, x+1], [y-1,x], [y+1,x]];
+            for (let entry in potentialParents){
+                let a = potentialParents[entry][0];
+                let b = potentialParents[entry][1];
+                if (isInGrid(a,b) && grid[a][b]['distance'] == currentDistance - 1){
+                    pathNode = grid[a][b];
+                    shortestPath.push(pathNode);
+                    break;
+                }
+            }
+        }
+        for (let i=0; i<shortestPath.length; i++){
+            let myNode = shortestPath[i];
+            push();
+            fill(color(66,245,239));
+            rect(myNode.colIdx*cellSize, myNode.rowIdx*cellSize, cellSize, cellSize, 5)
+            pop();
+        }
+    }
+
+    // select the next node to be the current node
+    let shortestDist = Infinity;
+    let nextNode = currentNode;
+    for (let i=0; i<rows; i++){
+        for (let j=0; j<cols; j++){
+            let testingNode = grid[i][j];
+            if (i == currentNode.rowIdx && j == currentNode.colIdx){continue}
+            if (testingNode.visited == true){continue}
+            if (grid[i][j]['distance']<shortestDist){
+                shortestDist = grid[i][j]['distance'];
+                nextNode = grid[i][j]
+            }
+        }
+    }
+    nextNode.current = true;
+    }
+      
 }
