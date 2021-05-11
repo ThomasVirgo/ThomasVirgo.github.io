@@ -1,9 +1,12 @@
 let grid;
-let cellSize = 20;
+let cellSize = 20; //add slider for this to change the difficulty
 let width = window.innerWidth/2;
 let height = window.innerHeight/2;
 let rows = Math.floor(height/cellSize);
 let cols = Math.floor(width/cellSize);
+if (rows % 2 == 0){rows ++}
+if (cols % 2 == 0){cols ++}
+let playerPos = [1,1]; //[row,col]
 
 let mazeBtn = document.getElementById('maze-btn');
 mazeBtn.addEventListener('click', ()=>generateMaze());
@@ -11,6 +14,7 @@ mazeBtn.addEventListener('click', ()=>generateMaze());
 
 class Node {
     constructor(i,j){
+        this.player = false;
         this.start = false; //true if node is the starting point;
         this.end = false;  //true if node is the end point;
         this.visited = false;
@@ -59,6 +63,14 @@ const isInGrid = (i,j) => {
 
 const generateMaze = () => {
     createGrid();
+    playerPos = [1,1];
+    fill('blue');
+    rect(1*cellSize, 1*cellSize, cellSize, cellSize);
+    grid[1][1]['player']=true;
+    fill('green');
+    rect((cols-2)*cellSize,(rows-2)*cellSize, cellSize, cellSize);
+    grid[rows-2][cols-2]['end']=true;
+
     let available = [];
     let stack = [], current;
     for (let i=0; i<rows; i++){
@@ -121,12 +133,69 @@ const generateMaze = () => {
     }
 }
 
+function movePlayer(i,j){
+    if (isInGrid(i,j) && !grid[i][j]['obstacle']){
+        fill('white');
+        rect(playerPos[1]*cellSize, playerPos[0]*cellSize, cellSize, cellSize);
+        fill('blue');
+        rect(j*cellSize, i*cellSize, cellSize, cellSize);
+        playerPos = [i,j];
+    }
+}
+
+function keyPressed(){
+    // if (keyIsDown){
+    //    if (keyCode === LEFT_ARROW){
+    //     console.log('left arrow pressed')
+    //     let [i,j] = [playerPos[0], playerPos[1]-1];
+    //     movePlayer(i,j);
+    //     }
+    //     if (keyCode === RIGHT_ARROW){
+    //         console.log('right arrow pressed')
+    //         let [i,j] = [playerPos[0], playerPos[1]+1];
+    //         movePlayer(i,j);
+    //     }
+    //     if (keyCode === UP_ARROW){
+    //         console.log('up arrow pressed')
+    //         let [i,j] = [playerPos[0]-1, playerPos[1]];
+    //         movePlayer(i,j);
+    //     }
+    //     if (keyCode === DOWN_ARROW){
+    //         console.log('down arrow pressed')
+    //         let [i,j] = [playerPos[0]+1, playerPos[1]];
+    //         movePlayer(i,j);
+    //     } 
+    // }
+}
+
+function keyReleased(){
+    console.log('released key')
+}
+
 function setup() {
     let canvas = createCanvas(width, height);
+    frameRate(20);
     canvas.center();
     generateMaze();
 }
   
 function draw() {
+    if (keyIsDown(LEFT_ARROW)){
+        let [i,j] = [playerPos[0], playerPos[1]-1];
+        movePlayer(i,j);
+        console.log('left arrow down')
+    }
+    if (keyIsDown(RIGHT_ARROW)){
+        let [i,j] = [playerPos[0], playerPos[1]+1];
+        movePlayer(i,j);
+    }
+    if (keyIsDown(UP_ARROW)){
+        let [i,j] = [playerPos[0]-1, playerPos[1]];
+        movePlayer(i,j);
+    }
+    if (keyIsDown(DOWN_ARROW)){
+        let [i,j] = [playerPos[0]+1, playerPos[1]];
+        movePlayer(i,j);
+    }
     
 }
