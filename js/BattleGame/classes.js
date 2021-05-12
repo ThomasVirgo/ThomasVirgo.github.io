@@ -30,14 +30,14 @@ class Obstacle{
     }
 
     playerInXRange(player){
-        if ((player.x+player.size) > this.left || player.x < this.right){
+        if ((player.x+player.size) > this.left && player.x < this.right){
             return true
         }
         return false
     }
 
     playerInYRange(player){
-        if ((player.y+player.size) > this.top || player.y < this.bottom){
+        if ((player.y+player.size) > this.top && player.y < this.bottom){
             return true
         }
         return false
@@ -55,6 +55,14 @@ class Obstacle{
             return Math.min(leftDist, rightDist);
         }
         //otherwise not within obstacle co-ords
+        return 500
+    }
+
+    isAbove(player){
+        if (this.top - (player.y+player.size)>=0){
+            return true;
+        }
+        return false;
     }
 
 

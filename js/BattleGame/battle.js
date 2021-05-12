@@ -6,19 +6,28 @@ let obstacles = [new Obstacle(200,200,300,20), new Obstacle(100,100, 100, 20)];
 obstacles[0].distanceToPlayer(player);
 
 let isJumping = false;
-let dist1,dist2;
+let dist1,dist2,playerX,playerY,velY;
 
 function setup() {
   let canvas = createCanvas(1000, 400);
   canvas.id('canvas');
-  dist1 = createP('1')
-  dist2 = createP('2')
+  dist1 = createP('');
+  dist2 = createP('');
+  velY = createP('');
+  playerX = createP('');
+  playerY = createP('');
 }
 
 // draw loop
 function draw() {
   dist1.html(`Distance to obstacle 1: ${obstacles[0].distanceToPlayer(player)}`)
   dist2.html(`Distance to obstacle 2: ${obstacles[1].distanceToPlayer(player)}`)
+  playerX.html(`Player x-pos: ${player.x}`)
+  playerY.html(`Player y-pos: ${player.y}`)
+  velY.html(`Player y-velocity: ${player.yVel}`)
+
+  
+  
   background(220);
   fill('black');
   for (let i=0; i<obstacles.length; i++){
@@ -34,26 +43,23 @@ function draw() {
   }
   
   rect(player.x,player.y,player.size,player.size);
-  player.y -= player.yVel;
-  player.yVel -= gravity;
+  player.y += player.yVel;
+  player.yVel += gravity;
   if (player.y >= height-player.size){
     isJumping=false;
     player.yVel = 0;
+    player.y = height-player.size;
   }
 
   //check for collisions with obstacles
   for (let i=0; i<obstacles.length; i++){
     let ob = obstacles[i];
-    let a = Math.abs((player.x + player.size) - ob.left);
-    let b = Math.abs((ob.right-player.x));
-    let c = Math.abs(player.y - ob.bottom);
-    let d = Math.abs(ob.top - (player.y+player.size));
-    let distances = [a,b,c,d];
-    let countCloseEdges = distances.filter(item => item<5).length;
-    if (countCloseEdges > 2){
-      console.log('collision detected');
+    if (ob.distanceToPlayer(player)<10 && ob.isAbove(player)){
+      player.y = ob.top-player.size-1;
+      player.yVel = 0;
+      gravity = 0 ;
+      isJumping = false;
     }
-    
   }
 
   if (keyIsDown(RIGHT_ARROW)){
@@ -66,7 +72,8 @@ function draw() {
 function keyPressed(){
   if (keyCode === UP_ARROW && !isJumping){
     isJumping = true;
-    player.yVel = 20;
+    player.yVel = -25;
+    gravity = 1;
   }
 }
 
