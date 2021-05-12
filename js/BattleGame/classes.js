@@ -12,5 +12,15 @@ class Player{
       this.x = x;
       this.y = y;
       this.size = size;
+      this.xVel = 0;
+      this.yVel = 0;
+    }
+}
+
+class Weapon{
+    constructor(fireRate, bulletSize, ammo){
+        this.fireRate = fireRate;
+        this.bulletSize = bulletSize;
+        this.ammo = ammo;
     }
 }

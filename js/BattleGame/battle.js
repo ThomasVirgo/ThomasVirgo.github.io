@@ -1,11 +1,13 @@
 
 let speed = 5;
+let gravity = 1;
 let playerBullets = [];
-let player1 = new Player(50,50,20)
+let player1 = new Player(50,580,20);
+let isJumping = false;
 
 
 function setup() {
-  let canvas = createCanvas(600, 600);
+  let canvas = createCanvas(1000, 600);
   canvas.id('canvas');
 }
 
@@ -20,37 +22,39 @@ function draw() {
   }
   
   rect(player1.x,player1.y,player1.size,player1.size);
+  player1.y -= player1.yVel;
+  player1.yVel -= gravity;
+  if (player1.y >= height-player1.size){
+    isJumping=false;
+    player1.yVel = 0;
+  }
   if (keyIsDown(RIGHT_ARROW)){
     updatePlayer('right');
   } else if (keyIsDown(LEFT_ARROW)){
     updatePlayer('left');
   }
-  else if (keyIsDown(UP_ARROW)){
-    updatePlayer('up');
+}
+
+function keyPressed(){
+  if (keyCode === UP_ARROW && !isJumping){
+    isJumping = true;
+    player1.yVel = 20;
   }
-  else if (keyIsDown(DOWN_ARROW)){
-    updatePlayer('down');
-  }
-  
 }
 
 function updatePlayer(move){
   switch(move){
     case 'right':
-      player1.x +=speed;
+      if (player1.x < width-player1.size){
+        player1.x +=speed;
+      }
       break;
       
     case 'left':
-      player1.x -=speed;
-      break;
-      
-    case 'up':
-      player1.y -=speed;
-      break;
-    
-    case 'down':
-      player1.y +=speed;
-      break   
+      if (player1.x > 0){
+        player1.x -=speed;
+      }
+      break;  
   }
 }
 
