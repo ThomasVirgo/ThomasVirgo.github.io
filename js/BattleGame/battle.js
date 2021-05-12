@@ -1,28 +1,12 @@
+
 let speed = 5;
 let playerBullets = [];
-
-class Bullet{
-  constructor(xPos,yPos, xVel, yVel){
-    this.xPos=xPos;
-    this.yPos=yPos;
-    this.xVel=xVel;
-    this.yVel=yVel;
-  }
-}
-
-class Player{
-  constructor(x,y,size){
-    this.x = x;
-    this.y = y;
-    this.size = size;
-  }
-}
-
 let player1 = new Player(50,50,20)
 
 
 function setup() {
-  createCanvas(600, 600);
+  let canvas = createCanvas(600, 600);
+  canvas.id('canvas');
 }
 
 // draw loop
