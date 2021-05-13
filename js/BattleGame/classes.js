@@ -5,6 +5,11 @@ class Bullet{
       this.xVel=xVel;
       this.yVel=yVel;
     }
+
+    update(){
+        this.xPos += this.xVel/100;
+        this.yPos += this.yVel/100;
+    }
   }
   
 class Player{
@@ -14,6 +19,35 @@ class Player{
       this.size = size;
       this.xVel = 0;
       this.yVel = 0;
+      this.speed = 5;
+      this.isJumping = false;
+      this.gravity =1;
+    }
+
+    update(move){
+        switch(move){
+            case 'right':
+              if (this.x < width-this.size){
+                this.x +=this.speed;
+              }
+              break;
+              
+            case 'left':
+              if (this.x > 0){
+                this.x -=this.speed;
+              }
+              break;  
+        }
+    }
+
+    changePos(){
+        this.y += this.yVel;
+        this.yVel += this.gravity;
+        if (this.y >= height-this.size){
+            this.isJumping=false;
+            this.yVel = 0;
+            this.y = height-this.size;
+        }
     }
 }
 

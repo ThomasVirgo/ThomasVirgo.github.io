@@ -20,36 +20,34 @@ function setup() {
 
 // draw loop
 function draw() {
+  // info on player and obstacles
   dist1.html(`Distance to obstacle 1: ${obstacles[0].distanceToPlayer(player)}`)
   dist2.html(`Distance to obstacle 2: ${obstacles[1].distanceToPlayer(player)}`)
   playerX.html(`Player x-pos: ${player.x}`)
   playerY.html(`Player y-pos: ${player.y}`)
   velY.html(`Player y-velocity: ${player.yVel}`)
 
-  
-  
+  //set background
   background(220);
+
+  //draw obstacles
   fill('black');
   for (let i=0; i<obstacles.length; i++){
     let ob = obstacles[i];
     rect(ob.x, ob.y, ob.width, ob.height)
   }
   
+  //draw bullets
   fill('red');
   for (let i=0; i<playerBullets.length; i++){
     let bullet = playerBullets[i];
-    updateBullet(bullet);
+    bullet.update();
     circle(bullet.xPos,bullet.yPos,5);
   }
   
+  //update player position (could add this to the player class)
+  player.changePos();
   rect(player.x,player.y,player.size,player.size);
-  player.y += player.yVel;
-  player.yVel += gravity;
-  if (player.y >= height-player.size){
-    isJumping=false;
-    player.yVel = 0;
-    player.y = height-player.size;
-  }
 
   //check for collisions with obstacles
   for (let i=0; i<obstacles.length; i++){
@@ -57,46 +55,28 @@ function draw() {
     if (ob.distanceToPlayer(player)<10 && ob.isAbove(player)){
       player.y = ob.top-player.size-1;
       player.yVel = 0;
-      gravity = 0 ;
-      isJumping = false;
+      player.gravity = 0 ;
+      player.isJumping = false;
     }
   }
 
+  //allow right and left keys to move plaer (add movePlyaer method to class)
   if (keyIsDown(RIGHT_ARROW)){
-    updatePlayer('right');
+    player.update('right');
   } else if (keyIsDown(LEFT_ARROW)){
-    updatePlayer('left');
+    player.update('left');
   }
 }
+// end of draw loop
 
 function keyPressed(){
-  if (keyCode === UP_ARROW && !isJumping){
-    isJumping = true;
+  if (keyCode === UP_ARROW && !player.isJumping){
+    player.isJumping = true;
     player.yVel = -25;
-    gravity = 1;
+    player.gravity = 1;
   }
 }
 
-function updatePlayer(move){
-  switch(move){
-    case 'right':
-      if (player.x < width-player.size){
-        player.x +=speed;
-      }
-      break;
-      
-    case 'left':
-      if (player.x > 0){
-        player.x -=speed;
-      }
-      break;  
-  }
-}
-
-function updateBullet(bullet){
-  bullet.xPos += bullet.xVel/100;
-  bullet.yPos += bullet.yVel/100;
-}
   
 function mouseClicked(){
   let gunDirection = createVector(mouseX-player.x, mouseY-player.y);
