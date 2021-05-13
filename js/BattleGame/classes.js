@@ -22,6 +22,7 @@ class Player{
       this.speed = 5;
       this.isJumping = false;
       this.gravity =1;
+      this.onObstacle = 0;
     }
 
     update(move){
@@ -52,11 +53,12 @@ class Player{
 }
 
 class Obstacle{
-    constructor(x,y,width,height){
+    constructor(x,y,width,height, id){
         this.x=x;
         this.y=y;
         this.width=width;
         this.height=height;
+        this.id=id;
         this.left = this.x;
         this.right = this.x + this.width;
         this.top = this.y;
@@ -77,19 +79,31 @@ class Obstacle{
         return false
     }
 
-    distanceToPlayer = (player) =>{
-        if (this.playerInXRange(player)){
-            let belowDist = Math.abs(player.y - this.bottom);
-            let aboveDist = Math.abs((this.top - (player.y+player.size)))
-            return Math.min(belowDist, aboveDist);
+    
+    letPlayerFall(player){
+        if (player.onObstacle == this.id && !this.playerInXRange(player)){
+            player.gravity = 1;
+            player.onObstacle = 0;
         }
-        if (this.playerInYRange(player)){
-            let rightDist = Math.abs(player.x - this.right);
-            let leftDist = Math.abs((this.left - (player.x+player.size)))
-            return Math.min(leftDist, rightDist);
+    }
+
+    collision(player){
+        //top of player with bottom of obstacle
+        let topPlayerBottomObstacle = player.y - this.bottom;
+        if (topPlayerBottomObstacle>0 && topPlayerBottomObstacle<20 && this.playerInXRange(player)){
+            player.yVel = 5;
         }
-        //otherwise not within obstacle co-ords
-        return 500
+        //bottom of player with top of obstacle
+        let bottomPlayerTopObstacle = this.top - (player.y+player.size);
+        if (bottomPlayerTopObstacle>0 && bottomPlayerTopObstacle<20 && this.playerInXRange(player) && !player.onObstacle){
+            player.yVel = 0;
+            player.y = this.top - player.size - 1;
+            player.gravity = 0;
+            player.isJumping = false;
+            player.onObstacle = this.id;
+        }
+
+        return false;
     }
 
     isAbove(player){
