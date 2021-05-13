@@ -1,12 +1,12 @@
 let player = new Player(50,380,20);
-let speed = 5;
-let gravity = 1;
 let playerBullets = [];
-let obstacles = [new Obstacle(200,200,300,20,1), new Obstacle(100,100, 100, 20,2), new Obstacle(50,300, 50, 50,3)];
+let obstacles = [new Obstacle(200,200,300,20,1), new Obstacle(100,100, 100, 20,2), new Obstacle(50,300, 50, 50,3),
+new Obstacle(600,200,300,20,4)];
+let counter = 0;
+console.log(player);
 
 
-let isJumping = false;
-let playerX,playerY,velY, gravP;
+let playerX,playerY,velY, gravP, counterP;
 
 function setup() {
   let canvas = createCanvas(1000, 400);
@@ -15,6 +15,7 @@ function setup() {
   playerX = createP('');
   playerY = createP('');
   gravP = createP('');
+  counterP = createP('');
 }
 
 // draw loop
@@ -24,6 +25,7 @@ function draw() {
   playerY.html(`Player y-pos: ${player.y}`)
   velY.html(`Player y-velocity: ${player.yVel}`)
   gravP.html(`Gravity: ${player.gravity}`)
+  counterP.html(`Counter: ${counter}`)
 
   //set background
   background(220);
@@ -40,7 +42,10 @@ function draw() {
   for (let i=0; i<playerBullets.length; i++){
     let bullet = playerBullets[i];
     bullet.update();
-    circle(bullet.xPos,bullet.yPos,5);
+    if (bullet.alive){
+      circle(bullet.xPos,bullet.yPos,bullet.size);
+    }
+    
   }
   
   //update player position (could add this to the player class)
@@ -67,6 +72,15 @@ function draw() {
   } else if (keyIsDown(LEFT_ARROW)){
     player.update('left');
   }
+
+  //fire bullets when mouse is pressed
+  if (mouseIsPressed){
+    counter ++;
+    if (counter%(30-player.weapon.fireRate)==0){
+      let gunDirection = createVector(mouseX-player.x, mouseY-player.y);
+      playerBullets.push(new Bullet(player.x,player.y,gunDirection.x, gunDirection.y, player.weapon.bulletSize));
+    }
+  }
 }
 // end of draw loop
 
@@ -79,9 +93,10 @@ function keyPressed(){
   }
 }
 
-  
-function mouseClicked(){
-  let gunDirection = createVector(mouseX-player.x, mouseY-player.y);
-  playerBullets.push(new Bullet(player.x,player.y,gunDirection.x, gunDirection.y));
-}
+// function mousePressed(){
+//   let gunDirection = createVector(mouseX-player.x, mouseY-player.y);
+//   playerBullets.push(new Bullet(player.x,player.y,gunDirection.x, gunDirection.y, player.weapon.bulletSize));
+// }
+
+
   

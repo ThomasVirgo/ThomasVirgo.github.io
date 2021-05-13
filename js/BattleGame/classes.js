@@ -1,9 +1,11 @@
 class Bullet{
-    constructor(xPos,yPos, xVel, yVel){
+    constructor(xPos,yPos, xVel, yVel, size){
       this.xPos=xPos;
       this.yPos=yPos;
       this.xVel=xVel;
       this.yVel=yVel;
+      this.size = size;
+      this.alive = true;
     }
 
     update(){
@@ -11,6 +13,15 @@ class Bullet{
         this.yPos += this.yVel/100;
     }
   }
+
+class Weapon{
+    constructor(name, fireRate, bulletSize, ammo){
+        this.name = name;
+        this.fireRate = fireRate;
+        this.bulletSize = bulletSize;
+        this.ammo = ammo;
+    }
+}
   
 class Player{
     constructor(x,y,size){
@@ -23,6 +34,8 @@ class Player{
       this.isJumping = false;
       this.gravity =1;
       this.onObstacle = 0;
+      this.weapon = new Weapon('pistol', 1, 10, 20);
+      this.weapons = [this.weapon]; 
     }
 
     update(move){
@@ -105,21 +118,5 @@ class Obstacle{
 
         return false;
     }
-
-    isAbove(player){
-        if (this.top - (player.y+player.size)>=0){
-            return true;
-        }
-        return false;
-    }
-
-
 }
 
-class Weapon{
-    constructor(fireRate, bulletSize, ammo){
-        this.fireRate = fireRate;
-        this.bulletSize = bulletSize;
-        this.ammo = ammo;
-    }
-}
