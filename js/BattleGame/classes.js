@@ -43,6 +43,7 @@ class Player{
       this.weapon = new Weapon('pistol', 1, 5, 20);
       this.weapons = [this.weapon]; 
       this.bullets = [];
+      this.health = 5;
     }
 
     update(move){
@@ -131,11 +132,16 @@ class Obstacle{
             let b = player.bullets[k];
             if (b.xPos > this.left && b.xPos < this.right && b.yPos > this.top && b.yPos < this.bottom){
                 b.alive = false;
-                console.log('bullet denied!');
             }
         }
     }
+}
 
-    
+class Ammo{
+    constructor(x,y,amount){
+        this.x = x;
+        this.y = y; 
+        this.amount = amount;
+    }
 }
 
