@@ -1,12 +1,11 @@
 let player = new Player(50,380,20);
-let playerBullets = [];
 let obstacles = [new Obstacle(200,200,300,20,1), new Obstacle(100,100, 100, 20,2), new Obstacle(50,300, 50, 50,3),
 new Obstacle(600,200,300,20,4)];
 let counter = 0;
 console.log(player);
 
 
-let playerX,playerY,velY, gravP, counterP;
+let playerX,playerY,velY, gravP, counterP, numBullets;
 
 function setup() {
   let canvas = createCanvas(1000, 400);
@@ -16,6 +15,7 @@ function setup() {
   playerY = createP('');
   gravP = createP('');
   counterP = createP('');
+  numBullets = createP('');
 }
 
 // draw loop
@@ -26,6 +26,7 @@ function draw() {
   velY.html(`Player y-velocity: ${player.yVel}`)
   gravP.html(`Gravity: ${player.gravity}`)
   counterP.html(`Counter: ${counter}`)
+  numBullets.html(`Number of alive bullets: ${player.bullets.length}`)
 
   //set background
   background(220);
@@ -39,9 +40,11 @@ function draw() {
   
   //draw bullets
   fill('red');
-  for (let i=0; i<playerBullets.length; i++){
-    let bullet = playerBullets[i];
+  player.bullets = player.bullets.filter(item => item.alive); // remove any dead bullets
+  for (let i=0; i<player.bullets.length; i++){
+    let bullet = player.bullets[i];
     bullet.update();
+    bullet.checkAlive();
     if (bullet.alive){
       circle(bullet.xPos,bullet.yPos,bullet.size);
     }
@@ -59,6 +62,7 @@ function draw() {
   
   for (let i=0; i<obstacles.length; i++){
     obstacles[i].letPlayerFall(player);
+    obstacles[i].killBullets(player);
     if (!player.onObstacle){
       obstacles[i].collision(player);
     }
@@ -78,7 +82,7 @@ function draw() {
     counter ++;
     if (counter%(30-player.weapon.fireRate)==0){
       let gunDirection = createVector(mouseX-player.x, mouseY-player.y);
-      playerBullets.push(new Bullet(player.x,player.y,gunDirection.x, gunDirection.y, player.weapon.bulletSize));
+      player.bullets.push(new Bullet(player.x,player.y,gunDirection.x, gunDirection.y, player.weapon.bulletSize));
     }
   }
 }

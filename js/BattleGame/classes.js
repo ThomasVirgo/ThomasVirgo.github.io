@@ -12,6 +12,12 @@ class Bullet{
         this.xPos += this.xVel/100;
         this.yPos += this.yVel/100;
     }
+
+    checkAlive(){
+        if (this.xPos > width || this.yPos > height || this.xPos < 0 || this.yPos < 0){
+            this.alive = false;
+        }
+    }
   }
 
 class Weapon{
@@ -34,8 +40,9 @@ class Player{
       this.isJumping = false;
       this.gravity =1;
       this.onObstacle = 0;
-      this.weapon = new Weapon('pistol', 1, 10, 20);
+      this.weapon = new Weapon('pistol', 1, 5, 20);
       this.weapons = [this.weapon]; 
+      this.bullets = [];
     }
 
     update(move){
@@ -100,6 +107,7 @@ class Obstacle{
         }
     }
 
+
     collision(player){
         //top of player with bottom of obstacle
         let topPlayerBottomObstacle = player.y - this.bottom;
@@ -115,8 +123,19 @@ class Obstacle{
             player.isJumping = false;
             player.onObstacle = this.id;
         }
-
         return false;
     }
+
+    killBullets(player){
+        for (let k=0; k<player.bullets.length; k++){
+            let b = player.bullets[k];
+            if (b.xPos > this.left && b.xPos < this.right && b.yPos > this.top && b.yPos < this.bottom){
+                b.alive = false;
+                console.log('bullet denied!');
+            }
+        }
+    }
+
+    
 }
 
