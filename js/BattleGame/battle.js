@@ -13,7 +13,7 @@ function setup() {
   canvas.id('canvas');
 
   //add ammo boxes
-  setInterval(createAmmo, 30*1000);
+  setInterval(createAmmo, 5*1000);
 
   //text to be dsiplayed
   velY = createP('');
@@ -47,6 +47,17 @@ function draw() {
   //set background
   background(220);
 
+  //draw ammo boxes
+  ammoBoxes = ammoBoxes.filter(box => box.alive); // remove any boxes that have been picked up
+  for (let i=0; i<ammoBoxes.length; i++){
+    let a = ammoBoxes[i];
+    a.remove(player);
+    fill('green')
+    rect(a.x, a.y, 15, 15);
+    fill('white')
+    text('A', a.x+3, a.y+11);
+  }
+
   //draw obstacles
   fill('black');
   for (let i=0; i<obstacles.length; i++){
@@ -54,17 +65,6 @@ function draw() {
     rect(ob.x, ob.y, ob.width, ob.height)
   }
 
-  //draw ammo boxes
-  for (let i=0; i<ammoBoxes.length; i++){
-    let a = ammoBoxes[i];
-    fill('green')
-    rect(a.x, a.y, 15, 15);
-    fill('white')
-    text('A', a.x+3, a.y+11);
-  }
-  
-  
-  
   //draw bullets
   fill('red');
   player.bullets = player.bullets.filter(item => item.alive); // remove any dead bullets
@@ -128,7 +128,7 @@ function keyPressed(){
 function createAmmo(){
   let ammoX = random(0,width-10);
   let ammoY = random(0,height-10);
-  ammoBoxes.push(new Ammo(ammoX,ammoY,random(20)));
+  ammoBoxes.push(new Ammo(ammoX,ammoY,Math.ceil(random(20))));
 }
 
 // function mousePressed(){

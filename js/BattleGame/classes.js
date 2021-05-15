@@ -142,6 +142,15 @@ class Ammo{
         this.x = x;
         this.y = y; 
         this.amount = amount;
+        this.alive = true;
+    }
+
+    remove(player){
+        if (this.x > player.x && this.x < (player.x+player.size) && this.y > player.y && this.y < (player.y + player.size)){
+            this.alive = false;
+            player.weapon.ammo += this.amount // add the ammo to player
+            console.log('ammo added');
+        }
     }
 }
 
