@@ -1,3 +1,6 @@
+const ENDPOINT = "https://Battle-Backend.thomasvirgo.repl.co";
+const socket = io(ENDPOINT);
+console.log(socket);
 let player = new Player(50,380,20);
 let obstacles = [new Obstacle(200,200,300,20,1), new Obstacle(100,100, 100, 20,2), new Obstacle(50,300, 50, 50,3),
 new Obstacle(600,200,300,20,4)];
