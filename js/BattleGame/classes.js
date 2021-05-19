@@ -21,11 +21,29 @@ class Bullet{
   }
 
 class Weapon{
-    constructor(name, fireRate, bulletSize, ammo){
+    constructor(name, fireRate, bulletSize, ammo, index){
         this.name = name;
         this.fireRate = fireRate;
         this.bulletSize = bulletSize;
         this.ammo = ammo;
+        this.index = index;
+    }
+}
+
+class WeaponBox{
+    constructor(x,y,weapon){
+        this.x=x;
+        this.y=y;
+        this.weapon=weapon;
+        this.alive = true;
+    }
+
+    remove(player){
+        if (this.x+15 > player.x && this.x-15 < (player.x+player.size) && this.y+15 > player.y && this.y+15 < (player.y + player.size)){
+            this.alive = false;
+            player.weapons.push(this.weapon);
+            console.log(player);
+        }
     }
 }
   
@@ -40,10 +58,11 @@ class Player{
       this.isJumping = false;
       this.gravity =1;
       this.onObstacle = 0;
-      this.weapon = new Weapon('pistol', 1, 5, 20);
+      this.weapon = new Weapon('pistol', 1, 5, 20, 0);
       this.weapons = [this.weapon]; 
       this.bullets = [];
       this.health = 5;
+      this.weaponIndex = 0;
     }
 
     update(move){
@@ -146,7 +165,7 @@ class Ammo{
     }
 
     remove(player){
-        if (this.x > player.x && this.x < (player.x+player.size) && this.y > player.y && this.y < (player.y + player.size)){
+        if (this.x+15 > player.x && this.x-15 < (player.x+player.size) && this.y+15 > player.y && this.y+15 < (player.y + player.size)){
             this.alive = false;
             player.weapon.ammo += this.amount // add the ammo to player
             console.log('ammo added');
