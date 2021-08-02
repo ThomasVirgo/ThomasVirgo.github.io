@@ -1,68 +1,521 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <!-- metadata elements, link, title, style -->
-    <title>Thomas Virgo</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="./CSS/style.css">
-	<link rel="stylesheet" href="./CSS/ContactForm.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <body>
-    <main>
+        <!--==================== ICONS ====================-->
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+        
+        <!--==================== SWIPE CSS ====================-->
+        <link rel="stylesheet" href="Static/css/swiper-bundle.min.css">
+        
+        <!--==================== CSS ====================-->
+        <link rel="stylesheet" href="Static/css/style.css">
 
-    	<nav id="navbar" class="nav">
-			<h1>Tom Virgo's Portfolio</h1>
-    		<a href="#projects">Projects</a>
-    		<a href="#profile-link">Contact</a>
-			<a href = '#about-me'>About Me</a>
-    	</nav>
+        <title>Tom Virgo</title>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">Tom Virgo</a>
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list grid">
+                        <li class="nav__item">
+                            <a href="#home" class="nav__link">
+                                <i class="uil uil-home nav__icon"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#about" class="nav__link">
+                                <i class="uil uil-user-square nav__icon"></i> About
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#skills" class="nav__link">
+                                <i class="uil uil-file-alt nav__icon"></i> Skills
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#projects" class="nav__link">
+                                <i class="uil uil-scenery nav__icon"></i> Projects
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#contact" class="nav__link">
+                                <i class="uil uil-envelope nav__icon"></i> Contact Me
+                            </a>
+                        </li>
+                    </ul>
+                    <i class="uil uil-times nav__close nav__icon" id="nav-close"></i>
+                </div>
 
-    	<section id="welcome-section" class="welcome">
-    		<h1>Hi my names Tom, welcome to my portfolio page.</h1>
-    	</section>
+                <div class="nav__btns">
+                    <i class="uil uil-moon change-theme" id="theme-button"></i>
 
-		<section id="about-me" class="about-me">
-			<h2>About Me</h2>
-			<h3>What am I looking for?</h3>
-			<h3>Skills</h3>
-			<h3>Education</h3>
-		</section>
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="uil uil-apps nav__icon"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
 
-    	<section id="projects" class="projects">
-    		<h1 class="project-intro">Here are some of my projects...</h1>
-    		<div class="project-tile tile1"><a href="https://epic-mestorf-c174e4.netlify.app/" target="_blank">Gandalf - The Card Game</a></div>
-    		<div class="project-tile tile2">Project 2</div>
-    		<div class="project-tile tile3">Project 3</div>
-    		<div class="project-tile tile4">Project 4</div>
-    	</section>
+        <!--==================== MAIN ====================-->
+        <main class="main">
+            <!--==================== HOME ====================-->
+            <section class="home section" id="home">
+                <div class="home__container container grid">
+                    <div class="home__content grid">
+                        <div class="home__social">
+                            <a href="https://www.linkedin.com/in/thomas-virgo-4256701b8?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B7PubMUmnRiuf1ahxuNjTiA%3D%3D" class="home__social-icon" target="_blank">
+                                <i class="uil uil-linkedin"></i>
+                            </a>
+                            <a href="https://github.com/ThomasVirgo" class="home__social-icon" target="_blank">
+                                <i class="uil uil-github"></i>
+                            </a>
+                            <a href="mailto:tomcvirgo@gmail.com" class="home__social-icon">
+                                <i class="uil uil-envelope"></i>
+                            </a>
+                        </div>
 
-		<div id='contact-form-container' class="form-container">
-			<form id="contactform" action="https://formsubmit.io/send/tomcvirgo@gmail.com" method="POST" class="form">
+                        <div class="home__img">                              
+                            <svg class='home__blob' viewBox="0 0 200 187" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <mask id="mask0" mask-type="alpha">
+                                    <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 
+                                    130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 
+                                    97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 
+                                    0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"/>
+                                </mask>
+                                <g mask="url(#mask0)">
+                                    <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 
+                                    165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
+                                    129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
+                                    -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"/>
+                                    <image class="home__blob-img" x='18' y='1' xlink:href="Static/img/profile.png"/>
+                                </g>
+                            </svg>
+                        </div>
 
-				<h2 class="contact-me">Contact Me</h2>
+                        <div class="home__data">
+                            <h1 class="home__title">Hi, I'm Tom!</h1>
+                            <h3 class="home__subtitle">Aspiring Software Engineer</h3>
+                            <p class="home__description">I am a recent University of Cambridge graduate and now full-stack software engineer.</p>
+                            <a href="#contact" class="button button--flex">
+                                Contact Me<i class="uil uil-message button__icon"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="home__scroll">
+                        <a href="#about" class="home__scroll-button button--flex">
+                            <i class="uil uil-mouse-alt-2 home__scroll-mouse"></i>
+                            <span class="home__scroll-name">Scroll Down</span>
+                            <i class="uil uil-arrow-down home__scroll-arrow"></i> 
+                            <!-- add from unicons -->
+                        </a>
+                    </div>
+                </div>
+                
+            </section>
 
-				<label for="name">Name:</label>
-				<input name="name" type="text" id="name" class="input" required placeholder="put your name here">
+            <!--==================== ABOUT ====================-->
+            <section class="about section" id="about">
+                <h2 class="section__title">About Me</h2>
+                <span class="section__subtitle">My Introduction</span>
 
-				<label for="email">Email:</label>
-				<input name="email" type="email" id="email" class="input" required placeholder="add your email address so I can respond to your message">
+                <div class="about__container container grid">
+                    <div class="about__data">
+                        <p class="about__description">Insert description here...</p>
+                    </div>
 
-				<label for="comment">Message:</label>
-				<textarea name="comment" id="comment" rows="3" class="input" required  placeholder="ask to arrange a call or give some feedback on my portfolio and projects"></textarea>
-				<!-- to avoid spam by bots -->
-				<input name="_formsubmit_id" type="text" style="display:none">
-				<input value="Send Message" type="submit" class="submit-button">
-			</form>
-		</div>
+                    <div class="about__info">
+                        <div>
+                            <span class="about__info-title">1 yr</span>
+                            <span class="about__info-name">Years <br> experience</span>
+                        </div>
+                        <div>
+                            <span class="about__info-title">8+</span>
+                            <span class="about__info-name">Years <br> experience</span>
+                        </div>
+                        <div>
+                            <span class="about__info-title">8+</span>
+                            <span class="about__info-name">Years <br> experience</span>
+                        </div>
+                    </div>
+                    <div class="about__buttons">
+                        <!-- add path to CV pdf in href  -->
+                        <a href="" class="button button--flex">
+                            Download CV<i class="uil uil-download-alt button__icon"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
 
-    	<footer class="footer-link">
-    		<a href="https://www.freecodecamp.org/tomvirgo" id="profile-link1" target="_blank" class="link">FreeCodeCamp</a>
-    		<a href="https://github.com/ThomasVirgo" id="profile-link2" target="_blank" class="link">GitHub</a>
-    	</footer>
+            <!--==================== SKILLS ====================-->
+            <section class="skills section" id="skills">
+                <h2 class="section__title">Skills</h2>
+                <span class="section__subtitle">Technologies I am familiar with</span>
 
-    </main>
-  </body>
-</html> 
+                <div class="skills__container container grid">
+                    <!-- FRONTEND SKILLS - Consider changing to a grid with icons -->
+                    <div class="skills__content skills__close">
+                        <div class="skills__header">
+                            <i class="uil uil-brackets-curly skills__icon"></i>
+
+                            <div>
+                                <h1 class="skills__title">Frontend</h1>
+                                <span class="skills_subtitle">Subtitle here</span>
+                            </div>
+
+                            <i class="uil uil-angle-down skills__arrow"></i>
+
+                        </div>
+                        <div class="skills__list grid">
+                            <div class="skills__data">
+                                <div class="skills__titles">
+                                    <h3 class="skills__name">HTML</h3>
+                                </div>
+                            </div>
+
+                            <div class="skills__data">
+                                <div class="skills__titles">
+                                    <h3 class="skills__name">CSS</h3>
+                                </div>
+                            </div>
+
+                            <div class="skills__data">
+                                <div class="skills__titles">
+                                    <h3 class="skills__name">JavaScript</h3>
+                                </div>
+                            </div>
+
+                            <div class="skills__data">
+                                <div class="skills__titles">
+                                    <h3 class="skills__name">React</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- BACKEND SKILLS -->
+                    <div class="skills__content skills__close">
+                        <div class="skills__header">
+                            <i class="uil uil-database skills__icon"></i>
+
+                            <div>
+                                <h1 class="skills__title">Backend</h1>
+                                <span class="skills_subtitle">Subtitle here</span>
+                            </div>
+
+                            <i class="uil uil-angle-down skills__arrow"></i>
+
+                        </div>
+                        <div class="skills__list grid">
+                            <div class="skills__data">
+                                <div class="skills__titles">
+                                    <h3 class="skills__name">Python</h3>
+                                </div>
+                            </div>
+
+                            <div class="skills__data">
+                                <div class="skills__titles">
+                                    <h3 class="skills__name">JavaScript</h3>
+                                </div>
+                            </div>
+
+                            <div class="skills__data">
+                                <div class="skills__titles">
+                                    <h3 class="skills__name">Django</h3>
+                                </div>
+                            </div>
+
+                            <div class="skills__data">
+                                <div class="skills__titles">
+                                    <h3 class="skills__name">Express</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!--==================== QUALIFICATIONS ====================-->
+            <section class="qualification section" id="qualifications">
+                <h2 class="section__title">Qualifications</h2>
+                <span class="section__subtitle">My journey</span>
+
+                <div class="qualification__container container">
+                    <div class="qualification__tabs">
+                        <div class="qualification__button button--flex">
+                            <i class="uil uil-graduation-cap qualification__icon"></i>
+                            Education
+                        </div>
+
+                        <div class="qualification__button button--flex">
+                            <i class="uil uil-briefcase-alt qualification__icon"></i>
+                            Work
+                        </div>
+                    </div>
+                    <div class="qualification__sections">
+                        <!--==================== Block 1 ====================-->
+                        <div class="qualification__content">
+                            <div class="qualification__data">
+                                <div>
+                                    <h3 class="qualification__title">GCSEs and A-levels</h3>
+                                    <span class="qualification__subtitle">Maiden Erlegh School</span>
+                                    <div class="qualification__calendar">
+                                        <i class="uil uil-calendar-alt"></i>
+                                        2009-2016
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <span class="qualification__rounder"></span>
+                                    <span class="qualification__line"></span>
+                                </div>
+                            </div>
+
+                            <div class="qualification__data">
+                                <div></div>
+
+                                <div>
+                                    <span class="qualification__rounder"></span>
+                                    <span class="qualification__line"></span>
+                                </div>
+
+                                <div>
+                                    <h3 class="qualification__title">Chemical Engineering Masters</h3>
+                                    <span class="qualification__subtitle">University of Cambridge</span>
+                                    <div class="qualification__calendar">
+                                        <i class="uil uil-calendar-alt"></i>
+                                        2016-2020
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="qualification__data">
+                                <div>
+                                    <h3 class="qualification__title">Graduate Engineer</h3>
+                                    <span class="qualification__subtitle">FairHeat</span>
+                                    <div class="qualification__calendar">
+                                        <i class="uil uil-calendar-alt"></i>
+                                        2020-2021
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <span class="qualification__rounder"></span>
+                                    <span class="qualification__line"></span>
+                                </div>
+                            </div>
+
+                            <div class="qualification__data">
+                                <div></div>
+                                
+                                <div>
+                                    <span class="qualification__rounder"></span>
+                                    <!-- <span class="qualification__line"></span> -->
+                                </div>
+
+                                <div>
+                                    <h3 class="qualification__title">Trainee Full Stack Software Engineer</h3>
+                                    <span class="qualification__subtitle">FutureProof</span>
+                                    <div class="qualification__calendar">
+                                        <i class="uil uil-calendar-alt"></i>
+                                        Ongoing
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!--==================== PORTFOLIO PROJECTS ====================-->
+            <section class="portfolio section" id="portfolio">
+                <h2 class="section__title">Projects</h2>
+                <span class="section__subtitle">My most recent work</span>
+
+                <div class="portfolio__container container swiper-container">
+                    <div class="swiper-wrapper">
+                        <!--==================== PROJECT 1====================-->
+                        <div class="portfolio__content grid swiper-slide">
+                            <!-- update images once complete projects -->
+                            <img src="Static/img/profile.png" alt="" class="portfolio__img">
+                            <div class="portfolio__data">
+                                <h3 class="portfolio__title">Project 1</h3>
+                                <p class="portfolio__description">Made using vanilla JS ....</p>
+                                <a href="#" class="button button--flex portfolio__button">
+                                    Demo
+                                    <i class="uil uil-arrow-right button__icon"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="portfolio__content grid swiper-slide">
+                            <!-- update images once complete projects -->
+                            <img src="Static/img/profile.png" alt="" class="portfolio__img">
+                            <div class="portfolio__data">
+                                <h3 class="portfolio__title">Project 2</h3>
+                                <p class="portfolio__description">Made using vanilla JS ....</p>
+                                <a href="#" class="button button--flex portfolio__button">
+                                    Demo
+                                    <i class="uil uil-arrow-right button__icon"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="portfolio__content grid swiper-slide">
+                            <!-- update images once complete projects -->
+                            <img src="Static/img/profile.png" alt="" class="portfolio__img">
+                            <div class="portfolio__data">
+                                <h3 class="portfolio__title">Project 3</h3>
+                                <p class="portfolio__description">Made using vanilla JS ....</p>
+                                <a href="#" class="button button--flex portfolio__button">
+                                    Demo
+                                    <i class="uil uil-arrow-right button__icon"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="portfolio__content grid swiper-slide">
+                            <!-- update images once complete projects -->
+                            <img src="Static/img/profile.png" alt="" class="portfolio__img">
+                            <div class="portfolio__data">
+                                <h3 class="portfolio__title">Project 4</h3>
+                                <p class="portfolio__description">Made using vanilla JS ....</p>
+                                <a href="#" class="button button--flex portfolio__button">
+                                    Demo
+                                    <i class="uil uil-arrow-right button__icon"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="swiper-button-next">
+                        <i class="uil uil-angle-right-b swiper-portfolio-icon"></i>
+                    </div>
+                    <div class="swiper-button-prev">
+                        <i class="uil uil-angle-left-b swiper-portfolio-icon"></i>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </section>
+
+
+            <!--==================== CONTACT ME ====================-->
+            <section class="contact section" id="contact">
+                <h2 class="section__title">Contact Me</h2>
+                <span class="section__subtitle">Get in touch!</span>
+
+                <div class="contact__container container grid">
+                    <div>
+                        <div class="contact__information">
+                            <i class="uil uil-envelope contact__icon"></i>
+                            <div>
+                                <h3 class="contact__title">Email</h3>
+                                <span class="contact__subtitle">tomcvirgo@gmail.com</span>
+                            </div>
+                        </div>
+                        <div class="contact__information">
+                            <i class="uil uil-map-marker contact__icon"></i>
+                            <div>
+                                <h3 class="contact__title">Location</h3>
+                                <span class="contact__subtitle">London</span>
+                            </div>
+                        </div> 
+                    </div>
+                    <form action="" class="contact__form grid">
+                        <div class="contact__inputs grid">
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Name</label>
+                                <input type="text" class="contact__input">
+                            </div>
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Email</label>
+                                <input type="email" class="contact__input">
+                            </div>
+                        </div>
+                        <div class="contact__content">
+                            <label for="" class="contact__label">Subject</label>
+                            <input type="text" class="contact__input">
+                        </div>
+                        <div class="contact__content">
+                            <label for="" class="contact__label">Message</label>
+                            <textarea name="" id="" cols="0" rows="7" class="contact__input"></textarea>
+                        </div>
+
+                        <div>
+                            <a href="" class="button button--flex">
+                                Send Message
+                                <i class="uil uil-message button__icon"></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!--==================== FOOTER ====================-->
+        <footer class="footer">
+            <div class="footer__bg">
+                <div class="footer__container container grid">
+                    <div>
+                        <h1 class="footer__title">Tom Virgo</h1>
+                        <span class="footer__subtitle">Trainee Full Stack Software Engineer</span>
+                    </div>
+
+                    <ul class="footer__links">
+                        <li>
+                            <a href="#home" class="footer__link">Home</a>
+                        </li>
+                        <li>
+                            <a href="#about" class="footer__link">About</a>
+                        </li>
+                        <li>
+                            <a href="#skills" class="footer__link">Skills</a>
+                        </li>
+                        <li>
+                            <a href="#qualifications" class="footer__link">Qualifications</a>
+                        </li>
+                        <li>
+                            <a href="#portfolio" class="footer__link">Projects</a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="footer__link">Contact Me</a>
+                        </li>
+                    </ul>
+
+                    <div class="footer__socials">
+                        <a target="_blank" href="https://www.linkedin.com/in/thomas-virgo-4256701b8?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B7PubMUmnRiuf1ahxuNjTiA%3D%3D" class="footer__social">
+                            <i class="uil uil-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/ThomasVirgo" target="_blank" class="footer__social">
+                            <i class="uil uil-github"></i>
+                        </a>
+                        <a href="mailto:tomcvirgo@gmail.com" target="_blank" class="footer__social">
+                            <i class="uil uil-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+        <!--==================== SCROLL TOP ====================-->
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class="uil uil-arrow-up scrollup__icon"></i>
+        </a>
+
+        <!--==================== SWIPER JS ====================-->
+        <script src="Static/js/swiper-bundle.min.js"></script>
+
+        <!--==================== MAIN JS ====================-->
+        <script src="Static/js/main.js"></script>
+    </body>
+</html>
