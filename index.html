@@ -34,19 +34,9 @@
                             <i class="uil uil-home nav__icon"></i> Home
                         </a>
                     </li>
-                    <!-- <li class="nav__item">
-                            <a href="#about" class="nav__link">
-                                <i class="uil uil-user-square nav__icon"></i> About
-                            </a>
-                        </li> -->
                     <li class="nav__item">
                         <a href="#skills" class="nav__link">
                             <i class="uil uil-file-alt nav__icon"></i> Skills
-                        </a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="#projects" class="nav__link">
-                            <i class="uil uil-scenery nav__icon"></i> Projects
                         </a>
                     </li>
                     <li class="nav__item">
@@ -109,54 +99,20 @@
                     <div class="home__data">
                         <h1 class="home__title">Hi, I'm Tom</h1>
                         <h3 class="home__subtitle">Backend Software Engineer</h3>
-                        <p class="home__description">I am a first class Cambridge University graduate (MEng), and backend engineer at SME fintech lender Iwoca. I work in the fintech team, building and maintaining the payment, reporting and reconciliation systems that handle millions of pounds worth of transactions each day. In my spare time I develop my own full stack applications.</p>
+                        <p class="home__description">I am a first class Cambridge University graduate (MEng), and
+                            backend engineer at SME fintech lender Iwoca. I work in the fintech team, building and
+                            maintaining the payment, reporting and reconciliation systems that handle millions of pounds
+                            worth of transactions each day.
+                        </p>
                         <a href="#contact" class="button button--flex">
                             Contact Me<i class="uil uil-message button__icon"></i>
                         </a>
                     </div>
                 </div>
-                <!-- <div class="home__scroll">
-                        <a href="#about" class="home__scroll-button button--flex">
-                            <i class="uil uil-mouse-alt-2 home__scroll-mouse"></i>
-                            <span class="home__scroll-name">Scroll Down</span>
-                            <i class="uil uil-arrow-down home__scroll-arrow"></i> 
-                        </a>
-                    </div> -->
             </div>
 
         </section>
 
-        <!--==================== ABOUT ====================-->
-        <!-- <section class="about section" id="about">
-                <h2 class="section__title">About Me</h2>
-                <span class="section__subtitle">My Introduction</span>
-
-                <div class="about__container container grid">
-                    <div class="about__data">
-                        <p class="about__description">Insert description here...</p>
-                    </div>
-
-                    <div class="about__info">
-                        <div>
-                            <span class="about__info-title">1 yr</span>
-                            <span class="about__info-name">Years <br> experience</span>
-                        </div>
-                        <div>
-                            <span class="about__info-title">8+</span>
-                            <span class="about__info-name">Years <br> experience</span>
-                        </div>
-                        <div>
-                            <span class="about__info-title">8+</span>
-                            <span class="about__info-name">Years <br> experience</span>
-                        </div>
-                    </div>
-                    <div class="about__buttons">
-                        <a href="" class="button button--flex">
-                            Download CV<i class="uil uil-download-alt button__icon"></i>
-                        </a>
-                    </div>
-                </div>
-            </section> -->
 
         <!--==================== SKILLS ====================-->
         <section class="skills section" id="skills">
@@ -224,13 +180,19 @@
 
                         <div class="skills__data">
                             <div class="skills__titles">
+                                <h3 class="skills__name">Go</h3>
+                            </div>
+                        </div>
+
+                        <div class="skills__data">
+                            <div class="skills__titles">
                                 <h3 class="skills__name">Rust (basic knowledge)</h3>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- FRONTEND SKILLS - Consider changing to a grid with icons -->
+                <!-- FRONTEND SKILLS  -->
                 <div class="skills__content skills__close">
                     <div class="skills__header">
                         <i class="uil uil-brackets-curly skills__icon"></i>
@@ -306,20 +268,9 @@
         <!--==================== QUALIFICATIONS ====================-->
         <section class="qualification section" id="qualifications">
             <h2 class="section__title">Education & Work</h2>
-            <span class="section__subtitle">My journey</span>
+            <span class="section__subtitle"></span>
 
             <div class="qualification__container container">
-                <!-- <div class="qualification__tabs">
-                        <div class="qualification__button button--flex">
-                            <i class="uil uil-graduation-cap qualification__icon"></i>
-                            Education
-                        </div>
-
-                        <div class="qualification__button button--flex">
-                            <i class="uil uil-briefcase-alt qualification__icon"></i>
-                            Work
-                        </div>
-                    </div> -->
                 <div class="qualification__sections">
                     <!--==================== Block 1 ====================-->
                     <div class="qualification__content">
@@ -430,140 +381,6 @@
 
         </section>
 
-        <!--==================== PORTFOLIO PROJECTS ====================-->
-        <section class="portfolio section" id="projects">
-            <h2 class="section__title">Projects</h2>
-            <span class="section__subtitle"></span>
-
-            <div class="portfolio__container container swiper-container">
-                <div class="swiper-wrapper">
-                    <!--==================== PROJECT 1====================-->
-                    <div class="portfolio__content grid swiper-slide">
-                        <img src="./Static/img/xray-defect.PNG" alt="" class="portfolio__img">
-                        <div class="portfolio__data">
-                            <h3 class="portfolio__title">Xray Defect Detection App</h3>
-                            <p class="portfolio__description">Machine learning RESNET model detects defects in tyre xray
-                                images. Model deployed on AWS using Sagemaker, lambda functions and API gateway.
-                                Frontend built with React. </p>
-                            <a href="https://apollo-data-science.netlify.app/" target="_blank"
-                                class="button button--flex portfolio__button">
-                                Demo
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="portfolio__content grid swiper-slide">
-                        <img src="./Static/img/vibe.PNG" alt="" class="portfolio__img">
-                        <div class="portfolio__data">
-                            <h3 class="portfolio__title">Vibe</h3>
-                            <p class="portfolio__description">Find dating ideas on vibe. React frontend with Django Rest
-                                Framework backend (PostgreSQL DB). Users are authenticated and can save and review date
-                                ideas. Uses Google APIs to find events and restaurants in your area.</p>
-                            <a href="https://london-vibe.netlify.app/" target="_blank"
-                                class="button button--flex portfolio__button">
-                                Demo
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                            <a href="https://github.com/team-vibe" target="_blank"
-                                class="button button--flex portfolio__button">
-                                Code
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="portfolio__content grid swiper-slide">
-                        <img src="./Static/img/gandalf.PNG" alt="" class="portfolio__img">
-                        <div class="portfolio__data">
-                            <h3 class="portfolio__title">Gandalf</h3>
-                            <p class="portfolio__description">Online multiplayer card game built with React and
-                                Supabase. Online game build by subscribing to realtime updates to postgreSQL database.
-                                Application also has realtime private messaging between friends.</p>
-                            <a href="https://gandalff.netlify.app/login" target="_blank"
-                                class="button button--flex portfolio__button">
-                                Demo
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                            <a href="https://github.com/ThomasVirgo/Supabase-Test-Client" target="_blank"
-                                class="button button--flex portfolio__button">
-                                Code
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="portfolio__content grid swiper-slide">
-                        <img src="./Static/img/tech-a-break.PNG" alt="" class="portfolio__img">
-                        <div class="portfolio__data">
-                            <h3 class="portfolio__title">tech-a-break</h3>
-                            <p class="portfolio__description">Blogging website for anonymous user posts, integrating
-                                Gifs and the Quill.js text editor.</p>
-                            <a href="https://tech-a-break.netlify.app/" class="button button--flex portfolio__button"
-                                target="_blank">
-                                Demo
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                            <a href="https://github.com/Team-DebTomZa" class="button button--flex portfolio__button"
-                                target="_blank">
-                                Code
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="portfolio__content grid swiper-slide">
-                        <img src="./Static/img/habitude.PNG" alt="" class="portfolio__img">
-                        <div class="portfolio__data">
-                            <h3 class="portfolio__title">Habitude</h3>
-                            <p class="portfolio__description">A habit tracking app built with a HTML, CSS, Vanilla JS
-                                frontend and Express, PostgreSQL backend. Users are authenticated with json web tokens.
-                            </p>
-                            <a href="https://habitudeapp.netlify.app/" class="button button--flex portfolio__button"
-                                target="_blank">
-                                Demo
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                            <a href="https://github.com/the-simian-army/habit-tracker"
-                                class="button button--flex portfolio__button" target="_blank">
-                                Code
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="portfolio__content grid swiper-slide">
-                        <img src="./Static/img/Quizz-Buzz.PNG" alt="" class="portfolio__img">
-                        <div class="portfolio__data">
-                            <h3 class="portfolio__title">Quizz Buzz</h3>
-                            <p class="portfolio__description">Realtime multiplayer quizz app with live scores and
-                                leaderboard. React.js frontend, express backend using MongoDB database and socket.io to
-                                handle websockets.</p>
-                            <a href="https://quizz-buzz.netlify.app/" target="_blank"
-                                class="button button--flex portfolio__button">
-                                Demo
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                            <a href="https://github.com/React-Quizz-App" target="_blank"
-                                class="button button--flex portfolio__button">
-                                Code
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </a>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="swiper-button-next">
-                    <i class="uil uil-angle-right-b swiper-portfolio-icon"></i>
-                </div>
-                <div class="swiper-button-prev">
-                    <i class="uil uil-angle-left-b swiper-portfolio-icon"></i>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </section>
-
 
         <!--==================== CONTACT ME ====================-->
         <section class="contact section" id="contact">
@@ -587,36 +404,6 @@
                         </div>
                     </div>
                 </div>
-                <form target="_blank" action="https://formsubmit.io/send/tomcvirgo@gmail.com" method="POST"
-                    class="contact__form grid" id="contact_form">
-                    <div class="contact__inputs grid">
-                        <div class="contact__content">
-                            <label for="name" class="contact__label">Name</label>
-                            <input type="text" class="contact__input" name="name" id="name" required>
-                        </div>
-                        <div class="contact__content">
-                            <label for="email" class="contact__label">Email</label>
-                            <input type="email" class="contact__input" id="email" name="email" required>
-                        </div>
-                    </div>
-                    <div class="contact__content">
-                        <label for="subject" class="contact__label">Subject</label>
-                        <input type="text" class="contact__input" id="subject" name="subject" required>
-                    </div>
-                    <div class="contact__content">
-                        <label for="message" class="contact__label">Message</label>
-                        <textarea name="message" id="message" cols="0" rows="7" class="contact__input"
-                            required></textarea>
-                    </div>
-
-                    <div>
-                        <a class="button button--flex" href="javascript:{}"
-                            onclick="document.getElementById('contact_form').submit();">
-                            Send Message
-                            <i class="uil uil-message button__icon"></i>
-                        </a>
-                    </div>
-                </form>
             </div>
         </section>
     </main>
@@ -634,17 +421,11 @@
                     <li>
                         <a href="#home" class="footer__link">Home</a>
                     </li>
-                    <!-- <li>
-                            <a href="#about" class="footer__link">About</a>
-                        </li> -->
                     <li>
                         <a href="#skills" class="footer__link">Skills</a>
                     </li>
                     <li>
                         <a href="#qualifications" class="footer__link">Qualifications</a>
-                    </li>
-                    <li>
-                        <a href="#portfolio" class="footer__link">Projects</a>
                     </li>
                     <li>
                         <a href="#contact" class="footer__link">Contact Me</a>
