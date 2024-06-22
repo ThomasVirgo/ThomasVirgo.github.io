@@ -100,7 +100,7 @@
                         <h1 class="home__title">Hi, I'm Tom</h1>
                         <h3 class="home__subtitle">Backend Software Engineer</h3>
                         <p class="home__description">I am a first class Cambridge University graduate (MEng), and
-                            backend engineer at SME fintech lender Iwoca. I work in the fintech team, building and
+                            backend engineer at SME fintech lender iwoca. I work in the fintech team, building and
                             maintaining the payment, reporting and reconciliation systems that handle millions of pounds
                             worth of transactions each day.
                         </p>
@@ -366,7 +366,7 @@
                             </div>
                             <div>
                                 <h3 class="qualification__title">Backend Engineer</h3>
-                                <span class="qualification__subtitle">Iwoca</span>
+                                <span class="qualification__subtitle">iwoca</span>
                                 <div class="qualification__calendar">
                                     <i class="uil uil-calendar-alt"></i>
                                     May 2022 - current
@@ -381,6 +381,42 @@
 
         </section>
 
+        <section class="section" id="experience">
+            <h2 class="section__title">Experience</h2>
+            <span class="section__subtitle">What I've done as a backend engineer</span>
+
+            <div class="container">
+
+                <div class="experience__container">
+                    <h3 class="experience__title">iwoca</h3>
+                    <ul class="experience__list">
+                        <li>Worked extensively with Django, Celery and Postgres</li>
+                        <li>Reduced the repayments run runtime from 3.5 hours to 10 minutes.</li>
+                        <!-- instead of running for every customer, only run for customers who were due to date we expected payment to clear -->
+                        <li>Rebuilt the commissions system to use an event driven architecture, reducing the response
+                            time of broker payouts by 95%</li>
+                        <!-- instead of calculating commission for entire history each time, use a signal that triggers a celery task to write commission earned each time a customer was funded and then simply add the rows when payout broker -->
+                        <li>Built and maintained payment systems and APIs handling millions of pounds each day.
+                            Integrated with Stripe, Truelayer, Modulr, Checkout and Raisin 3rd party APIs.</li>
+                        <li>Led project to integrate Raisin bank as a new payment provider in Germany. Scoped, wrote and
+                            completed tickets, provided regular updates to stakeholders and delivered the project on
+                            time</li>
+                        <li>Created a CLI in Go that allowed developers to easily interact with celery tasks and our
+                            database, improving developer experience when on support</li>
+                        <li>Troubleshooted and fixed critical bugs</li>
+                    </ul>
+                </div>
+
+                <div class="experience__container">
+                    <h3 class="experience__title">Apollo Tyres</h3>
+                    <ul class="experience__list">
+                        <li>Built a machine learning RESNET model that detected defects in tyre xray
+                            images. Deployed the model on AWS using Sagemaker, lambda functions and API gateway.
+                            Frontend built with React.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
         <!--==================== CONTACT ME ====================-->
         <section class="contact section" id="contact">
