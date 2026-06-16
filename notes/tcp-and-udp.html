@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--==================== ICONS ====================-->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!--==================== CSS ====================-->
+    <link rel="stylesheet" href="../Static/css/style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../Static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../Static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Static/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="../Static/favicon_io/site.webmanifest">
+
+    <title>TCP &amp; UDP | Tom Virgo</title>
+</head>
+
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="../index.html" class="nav__logo">Tom Virgo</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list grid">
+                    <li class="nav__item">
+                        <a href="../index.html#home" class="nav__link">
+                            <i class="uil uil-home nav__icon"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="../index.html#skills" class="nav__link">
+                            <i class="uil uil-file-alt nav__icon"></i> Skills
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="./" class="nav__link">
+                            <i class="uil uil-notes nav__icon"></i> Notes
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="../index.html#contact" class="nav__link">
+                            <i class="uil uil-envelope nav__icon"></i> Contact Me
+                        </a>
+                    </li>
+                </ul>
+                <i class="uil uil-times nav__close nav__icon" id="nav-close"></i>
+            </div>
+
+            <div class="nav__btns">
+                <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="uil uil-apps nav__icon"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <section class="section" style="padding-top: 6rem;">
+            <article class="note container">
+                <a href="./" class="note__back"><i class="uil uil-arrow-left"></i> All notes</a>
+
+                <h1>TCP &amp; UDP</h1>
+
+                <p>TCP and UDP are the two dominant transport-layer (layer 4) protocols.
+                They both run on top of IP and add the concept of <strong>ports</strong>, so
+                a single host can host many independent conversations at once. Where IP gets
+                a packet to the right machine, the transport layer gets it to the right
+                application and decides how much reliability to add on top of IP's
+                best-effort delivery.</p>
+
+                <h2>Ports and sockets</h2>
+
+                <p>A port is a 16-bit number (0 to 65535) identifying an application endpoint
+                on a host. A connection is identified by the four-tuple of source IP, source
+                port, destination IP, and destination port. Common defaults include 80 (HTTP),
+                443 (HTTPS), 53 (DNS), and 22 (SSH).</p>
+
+                <h2>TCP: reliable, ordered, connection-oriented</h2>
+
+                <p>TCP (Transmission Control Protocol) gives the application a reliable,
+                ordered byte stream. It hides packet loss, reordering, and duplication so the
+                receiver reads exactly what the sender wrote, in order.</p>
+
+                <h3>The three-way handshake</h3>
+
+                <p>A connection is established before any data flows:</p>
+
+                <pre><code>Client            Server
+  |  --- SYN --->    |
+  |  &lt;-- SYN/ACK --  |
+  |  --- ACK --->    |
+  |   (connected)    |</code></pre>
+
+                <p>Teardown uses a similar exchange of FIN and ACK segments to close each
+                direction of the stream independently.</p>
+
+                <h3>How TCP delivers its guarantees</h3>
+
+                <ul>
+                    <li><strong>Sequence numbers.</strong> Every byte is numbered, so the
+                    receiver can reorder segments and detect gaps.</li>
+                    <li><strong>Acknowledgements and retransmission.</strong> The sender
+                    resends data that is not acknowledged within a timeout.</li>
+                    <li><strong>Flow control.</strong> A receiver-advertised window stops a
+                    fast sender from overwhelming a slow receiver.</li>
+                    <li><strong>Congestion control.</strong> Algorithms such as slow start
+                    and congestion avoidance back off when the network is loaded, keeping the
+                    internet as a whole stable.</li>
+                </ul>
+
+                <h2>UDP: minimal, message-based, connectionless</h2>
+
+                <p>UDP (User Datagram Protocol) adds almost nothing to IP: ports and an
+                optional checksum. Each datagram is sent independently with no handshake, no
+                acknowledgements, and no ordering. Packets may be lost, duplicated, or arrive
+                out of order, and the application must handle that itself.</p>
+
+                <p>The trade-off is speed and control. There is no connection setup latency
+                and no head-of-line blocking, which suits applications that prefer fresh data
+                over complete data, or that build their own reliability on top.</p>
+
+                <h2>TCP vs UDP at a glance</h2>
+
+                <table>
+                    <thead>
+                        <tr><th></th><th>TCP</th><th>UDP</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Connection</td><td>Connection-oriented (handshake)</td><td>Connectionless</td></tr>
+                        <tr><td>Reliability</td><td>Guaranteed delivery, retransmits</td><td>Best-effort, no retransmit</td></tr>
+                        <tr><td>Ordering</td><td>Ordered byte stream</td><td>No ordering</td></tr>
+                        <tr><td>Flow / congestion control</td><td>Yes</td><td>No</td></tr>
+                        <tr><td>Header size</td><td>20 bytes (min)</td><td>8 bytes</td></tr>
+                        <tr><td>Data model</td><td>Stream of bytes</td><td>Discrete messages</td></tr>
+                        <tr><td>Overhead / latency</td><td>Higher</td><td>Lower</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>When to use which</h2>
+
+                <ul>
+                    <li><strong>TCP:</strong> web (HTTP/1.1 and HTTP/2), APIs, file transfer,
+                    email, SSH. Anything where correctness matters more than latency.</li>
+                    <li><strong>UDP:</strong> live video and voice, online games, and DNS,
+                    where a lost packet is better dropped than waited for. It is also the base
+                    for QUIC, which rebuilds reliability and ordering in user space and now
+                    underpins HTTP/3.</li>
+                </ul>
+
+                <p>A useful rule of thumb: reach for TCP by default, and choose UDP only when
+                you have a specific reason to manage delivery yourself or cannot tolerate
+                TCP's latency.</p>
+
+                <a href="./" class="note__back"><i class="uil uil-arrow-left"></i> All notes</a>
+            </article>
+        </section>
+    </main>
+
+    <!--==================== MAIN JS ====================-->
+    <script src="../Static/js/main.js"></script>
+</body>
+
+</html>
