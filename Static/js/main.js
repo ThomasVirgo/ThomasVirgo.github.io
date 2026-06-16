@@ -46,31 +46,7 @@ function toggleSkills(){
 skillsHeaders.forEach(item => item.addEventListener('click', toggleSkills));
 
 
-/*==================== PORTFOLIO SWIPER  ====================*/
-let swiper = new Swiper(".portfolio__container", {
-    cssMode: true,
-    // loop: true,
-
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-  });
-
-/*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
-
-
-/*==================== CHANGE BACKGROUND HEADER ====================*/ 
-
-
-/*==================== SHOW SCROLL UP ====================*/ 
-
-
-/*==================== DARK LIGHT THEME ====================*/ 
+/*==================== DARK LIGHT THEME ====================*/
 const themeButton = document.getElementById('theme-button');
 const darkTheme = 'dark-theme';
 const iconTheme = 'uil-sun';
