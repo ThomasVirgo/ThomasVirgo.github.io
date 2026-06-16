@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--==================== ICONS ====================-->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!--==================== CSS ====================-->
+    <link rel="stylesheet" href="../Static/css/style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../Static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../Static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Static/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="../Static/favicon_io/site.webmanifest">
+
+    <title>Notes — Tom Virgo</title>
+</head>
+
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="../index.html" class="nav__logo">Tom Virgo</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list grid">
+                    <li class="nav__item">
+                        <a href="../index.html#home" class="nav__link">
+                            <i class="uil uil-home nav__icon"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="../index.html#skills" class="nav__link">
+                            <i class="uil uil-file-alt nav__icon"></i> Skills
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="./" class="nav__link">
+                            <i class="uil uil-notes nav__icon"></i> Notes
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="../index.html#contact" class="nav__link">
+                            <i class="uil uil-envelope nav__icon"></i> Contact Me
+                        </a>
+                    </li>
+                </ul>
+                <i class="uil uil-times nav__close nav__icon" id="nav-close"></i>
+            </div>
+
+            <div class="nav__btns">
+                <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="uil uil-apps nav__icon"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <section class="section" style="padding-top: 6rem;">
+            <h2 class="section__title">Notes</h2>
+            <span class="section__subtitle">Engineering &amp; system design</span>
+
+            <div class="notes__list grid container">
+
+                <a href="internet-protocol.html" class="notes__card">
+                    <span class="notes__tag">Networking</span>
+                    <h3 class="notes__card-title">The Internet Protocol: IPv4 &amp; IPv6</h3>
+                    <p class="notes__card-desc">How packets are addressed and routed across networks, the structure of IPv4 and IPv6, and why the migration matters.</p>
+                </a>
+
+            </div>
+        </section>
+    </main>
+
+    <!--==================== MAIN JS ====================-->
+    <script src="../Static/js/main.js"></script>
+</body>
+
+</html>
