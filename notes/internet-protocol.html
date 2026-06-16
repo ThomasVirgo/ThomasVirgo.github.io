@@ -16,7 +16,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../Static/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="../Static/favicon_io/site.webmanifest">
 
-    <title>The Internet Protocol: IPv4 &amp; IPv6 — Tom Virgo</title>
+    <title>The Internet Protocol: IPv4 &amp; IPv6 | Tom Virgo</title>
 </head>
 
 <body>
@@ -71,7 +71,7 @@
                 <p>The Internet Protocol (IP) is the layer that gives every device on a
                 network an address and defines how data is packaged and routed between
                 them. It sits at the network layer (layer 3) of the OSI model. Almost
-                everything above it &mdash; TCP, UDP, HTTP, DNS &mdash; ultimately rides
+                everything above it (TCP, UDP, HTTP, DNS) ultimately rides
                 inside IP packets.</p>
 
                 <p>IP makes two deliberate trade-offs that shape everything else:</p>
@@ -102,7 +102,7 @@
 
                 <p>IPv4 uses <strong>32-bit</strong> addresses, written as four
                 dot-separated octets, e.g. <code>203.0.113.42</code>. That gives roughly
-                4.3 billion (2<sup>32</sup>) addresses &mdash; which sounded limitless in
+                4.3 billion (2<sup>32</sup>) addresses, which sounded limitless in
                 the 1980s and ran out in practice in the 2010s.</p>
 
                 <h3>Packet header</h3>
@@ -116,7 +116,7 @@
                     <tbody>
                         <tr><td>Version</td><td>4 for IPv4</td></tr>
                         <tr><td>TTL</td><td>Hop limit; decremented at each router, packet dropped at 0 (prevents loops)</td></tr>
-                        <tr><td>Protocol</td><td>What's inside &mdash; TCP (6), UDP (17), ICMP (1)</td></tr>
+                        <tr><td>Protocol</td><td>What's inside: TCP (6), UDP (17), ICMP (1)</td></tr>
                         <tr><td>Source / Destination</td><td>The two 32-bit addresses</td></tr>
                         <tr><td>Header checksum</td><td>Error check over the header only</td></tr>
                         <tr><td>Fragment fields</td><td>Allow a packet to be split to fit a link's MTU</td></tr>
@@ -148,7 +148,7 @@
                 Leading zeros can be dropped and one run of all-zero groups collapsed to
                 <code>::</code>, so that becomes <code>2001:db8:85a3::8a2e:370:7334</code>.</p>
 
-                <p>The address space is 2<sup>128</sup> &mdash; about 3.4&times;10<sup>38</sup>
+                <p>The address space is 2<sup>128</sup>, about 3.4&times;10<sup>38</sup>
                 addresses. Large enough that subnetting can be generous and NAT becomes
                 unnecessary, restoring direct end-to-end addressing.</p>
 
@@ -185,7 +185,7 @@
 
                 <h2>The migration</h2>
 
-                <p>IPv4 and IPv6 are not directly interoperable &mdash; an IPv6-only host
+                <p>IPv4 and IPv6 are not directly interoperable: an IPv6-only host
                 can't talk to an IPv4-only host without a translator. So the transition has
                 been gradual, mostly via <strong>dual-stack</strong>: devices run both
                 protocols at once and prefer IPv6 when both ends support it. Tunnelling and
