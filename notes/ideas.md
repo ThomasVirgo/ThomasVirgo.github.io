@@ -8,3 +8,19 @@
 - [ ] Postgres query optimisation and identifying slow queries
 - [ ] Postgres locking, adding concurrent indexes, and deadlocks
 - [ ] NoSQL vs SQL databases
+- [ ] Git rebase vs git merge
+- [ ] Nginx sidecards, TLS and SSL
+- [ ] Encoding and serialisation
+- [ ] Hashing and checksums
+- [ ] Encryption, assymetric and symetric, SSH
+- [ ] GraphQL
+- [ ] gRPC
+- [ ] The TOR network
+- [ ] SMPT
+- [ ] Firewalls, ports and sockets
+- [ ] Caching deepdive
+- [ ] Rate limiting and throttling
+- [ ] Content delivery networks (CDN)
+- [ ] Auth, sessions, jwts, single sign on, 2FA
+- [ ] MCPs
+- [ ] 4 types of SQL joins
