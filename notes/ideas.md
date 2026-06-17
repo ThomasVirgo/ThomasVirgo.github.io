@@ -1,6 +1,6 @@
 - [x] internet protocol
 - [x] TCP & UDP
-- [ ] HTTP, and HTTP methods 
+- [x] HTTP, and HTTP methods 
 - [ ] Django deepdive into transactions and idempotency
 - [ ] Docker and Kubernetes
 - [ ] The path of a web request, DNS, reverse proxy etc.

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--==================== ICONS ====================-->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!--==================== CSS ====================-->
+    <link rel="stylesheet" href="../Static/css/style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../Static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../Static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Static/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="../Static/favicon_io/site.webmanifest">
+
+    <title>HTTP &amp; HTTP Methods | Tom Virgo</title>
+</head>
+
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="../index.html" class="nav__logo">Tom Virgo</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list grid">
+                    <li class="nav__item">
+                        <a href="../index.html#home" class="nav__link">
+                            <i class="uil uil-home nav__icon"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="../index.html#skills" class="nav__link">
+                            <i class="uil uil-file-alt nav__icon"></i> Skills
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="./" class="nav__link">
+                            <i class="uil uil-notes nav__icon"></i> Notes
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="../index.html#contact" class="nav__link">
+                            <i class="uil uil-envelope nav__icon"></i> Contact Me
+                        </a>
+                    </li>
+                </ul>
+                <i class="uil uil-times nav__close nav__icon" id="nav-close"></i>
+            </div>
+
+            <div class="nav__btns">
+                <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="uil uil-apps nav__icon"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <section class="section" style="padding-top: 6rem;">
+            <article class="note container">
+                <a href="./" class="note__back"><i class="uil uil-arrow-left"></i> All notes</a>
+
+                <h1>HTTP &amp; HTTP Methods</h1>
+
+                <p>HTTP (Hypertext Transfer Protocol) is the request/response protocol that
+                the web is built on. It is an application-layer (layer 7) protocol that, for
+                HTTP/1.1 and HTTP/2, runs on top of TCP (see the
+                <a href="tcp-and-udp.html">TCP &amp; UDP</a> note). TCP gives HTTP a reliable,
+                ordered byte stream between a client and a server; HTTP defines the grammar of
+                what gets sent over that stream: a client asks for or acts on a resource, and
+                the server answers.</p>
+
+                <p>The defining property of HTTP is that it is <strong>stateless</strong>. The
+                server keeps no memory of previous requests. Every request must carry
+                everything needed to understand it, which is why authentication tokens,
+                cookies, and content negotiation all ride along in headers on each request.
+                Statelessness is what lets any server behind a load balancer handle any
+                request, which is the foundation of horizontal scaling.</p>
+
+                <h2>Anatomy of a request and response</h2>
+
+                <p>An HTTP request is plain text (in HTTP/1.1) made of a request line, headers,
+                a blank line, and an optional body:</p>
+
+                <pre><code>POST /api/users HTTP/1.1
+Host: example.com
+Content-Type: application/json
+Content-Length: 27
+Authorization: Bearer abc123
+
+{"name": "Tom Virgo"}</code></pre>
+
+                <p>The response mirrors that shape: a status line, headers, a blank line, and
+                an optional body:</p>
+
+                <pre><code>HTTP/1.1 201 Created
+Content-Type: application/json
+Location: /api/users/42
+
+{"id": 42, "name": "Tom Virgo"}</code></pre>
+
+                <p>So every exchange has three moving parts worth keeping straight: the
+                <strong>method</strong> (what action), the <strong>status code</strong> (how it
+                went), and the <strong>headers</strong> (the metadata that drives caching,
+                auth, content type, and connection handling).</p>
+
+                <h2>Methods</h2>
+
+                <p>The method (also called the verb) states the intent of a request. The common
+                ones:</p>
+
+                <ul>
+                    <li><strong>GET.</strong> Retrieve a resource. No body, no side effects.</li>
+                    <li><strong>POST.</strong> Submit data, typically to create a resource or
+                    trigger processing. The catch-all for non-idempotent actions.</li>
+                    <li><strong>PUT.</strong> Replace a resource entirely at a known URL.</li>
+                    <li><strong>PATCH.</strong> Apply a partial update to a resource.</li>
+                    <li><strong>DELETE.</strong> Remove a resource.</li>
+                    <li><strong>HEAD.</strong> Like GET but returns headers only, no body.
+                    Useful for checking existence or metadata cheaply.</li>
+                    <li><strong>OPTIONS.</strong> Ask which methods and capabilities a resource
+                    supports. Used heavily in CORS preflight requests.</li>
+                </ul>
+
+                <h3>Safe and idempotent</h3>
+
+                <p>Two properties come up constantly, and they are precise terms, not vibes:</p>
+
+                <ul>
+                    <li><strong>Safe</strong> means the request has no intended side effects: it
+                    only reads. GET, HEAD, and OPTIONS are safe.</li>
+                    <li><strong>Idempotent</strong> means sending the request once or many times
+                    leaves the server in the same resulting state. GET, HEAD, OPTIONS, PUT, and
+                    DELETE are idempotent.</li>
+                </ul>
+
+                <table>
+                    <thead>
+                        <tr><th>Method</th><th>Safe</th><th>Idempotent</th><th>Typical use</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>GET</td><td>Yes</td><td>Yes</td><td>Read a resource</td></tr>
+                        <tr><td>HEAD</td><td>Yes</td><td>Yes</td><td>Read headers only</td></tr>
+                        <tr><td>OPTIONS</td><td>Yes</td><td>Yes</td><td>Discover capabilities</td></tr>
+                        <tr><td>PUT</td><td>No</td><td>Yes</td><td>Replace a resource</td></tr>
+                        <tr><td>DELETE</td><td>No</td><td>Yes</td><td>Remove a resource</td></tr>
+                        <tr><td>POST</td><td>No</td><td>No</td><td>Create / trigger action</td></tr>
+                        <tr><td>PATCH</td><td>No</td><td>No*</td><td>Partial update</td></tr>
+                    </tbody>
+                </table>
+
+                <p>The gotchas, which are exactly what interviews probe:</p>
+
+                <ul>
+                    <li><strong>POST is neither safe nor idempotent.</strong> Resending it
+                    twice creates two resources, which is why a flaky network retry on a POST
+                    can double-charge a customer.</li>
+                    <li><strong>PUT is idempotent but POST is not.</strong> PUT sets the
+                    resource to a fully specified state, so resending lands the same state. POST
+                    appends or creates, so resending compounds.</li>
+                    <li><strong>PATCH is not guaranteed idempotent</strong> (the asterisk
+                    above). The spec does not require it, even though a given PATCH can be
+                    written to be idempotent (for example setting a field to an absolute value
+                    rather than incrementing it).</li>
+                    <li><strong>DELETE is idempotent even though the second call may return
+                    404.</strong> Idempotency is about the <em>resulting state</em> of the
+                    server, not about the response code being identical. After one DELETE the
+                    resource is gone; after a second DELETE it is still gone.</li>
+                </ul>
+
+                <h2>Status codes</h2>
+
+                <p>The status code is a three-digit number whose first digit gives the class of
+                outcome:</p>
+
+                <table>
+                    <thead>
+                        <tr><th>Class</th><th>Meaning</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1xx</td><td>Informational (rarely seen directly)</td></tr>
+                        <tr><td>2xx</td><td>Success</td></tr>
+                        <tr><td>3xx</td><td>Redirection</td></tr>
+                        <tr><td>4xx</td><td>Client error (the request was wrong)</td></tr>
+                        <tr><td>5xx</td><td>Server error (the server failed)</td></tr>
+                    </tbody>
+                </table>
+
+                <p>The specific codes worth knowing cold:</p>
+
+                <ul>
+                    <li><strong>200 OK</strong> generic success. <strong>201 Created</strong>
+                    a resource was created (often with a <code>Location</code> header pointing
+                    to it). <strong>204 No Content</strong> success with nothing to return,
+                    common for DELETE and some PUTs.</li>
+                    <li><strong>301 Moved Permanently</strong> vs <strong>302 Found</strong>
+                    (temporary): permanent redirects can be cached and change SEO behaviour.
+                    <strong>304 Not Modified</strong> tells the client its cached copy is still
+                    valid (used with ETags, below).</li>
+                    <li><strong>400 Bad Request</strong> malformed request.
+                    <strong>401 Unauthorized</strong> actually means unauthenticated (no or bad
+                    credentials), while <strong>403 Forbidden</strong> means authenticated but
+                    not allowed. <strong>404 Not Found</strong>.
+                    <strong>409 Conflict</strong> the request clashes with current state (for
+                    example a version conflict). <strong>422 Unprocessable Entity</strong>
+                    well-formed but semantically invalid, common for validation errors.
+                    <strong>429 Too Many Requests</strong> you have been rate limited.</li>
+                    <li><strong>500 Internal Server Error</strong> the server threw.
+                    <strong>502 Bad Gateway</strong> and <strong>503 Service Unavailable</strong>
+                    usually come from a proxy or load balancer when the upstream is broken or
+                    overloaded.</li>
+                </ul>
+
+                <h2>Headers</h2>
+
+                <p>Headers are the key/value metadata that make HTTP flexible. The ones that
+                earn their keep:</p>
+
+                <ul>
+                    <li><strong>Content-Type.</strong> The media type of the body, such as
+                    <code>application/json</code> or <code>text/html</code>. The client and
+                    server both rely on it to parse the body.</li>
+                    <li><strong>Content-Length.</strong> The size of the body in bytes, so the
+                    receiver knows where the message ends.</li>
+                    <li><strong>Authorization.</strong> Carries credentials, commonly
+                    <code>Bearer &lt;token&gt;</code> for a JWT or API key.</li>
+                    <li><strong>Cache-Control.</strong> Directives such as <code>no-store</code>,
+                    <code>max-age=3600</code>, or <code>private</code> that tell clients and
+                    proxies whether and how long they may cache the response.</li>
+                    <li><strong>ETag</strong> and <strong>If-None-Match.</strong> An ETag is a
+                    fingerprint of a resource version. The client sends it back in
+                    <code>If-None-Match</code> on the next request; if it still matches, the
+                    server replies <code>304 Not Modified</code> with no body, saving bandwidth.
+                    This is conditional caching.</li>
+                    <li><strong>Cookie</strong> and <strong>Set-Cookie.</strong> How state is
+                    bolted onto a stateless protocol, covered next.</li>
+                </ul>
+
+                <h2>Statelessness, cookies, and sessions</h2>
+
+                <p>Because HTTP forgets everything between requests, anything resembling a
+                logged-in session has to be reconstructed on every request. The classic
+                mechanism is cookies: the server sends <code>Set-Cookie: session=abc123</code>
+                on login, the browser stores it, and the browser automatically attaches
+                <code>Cookie: session=abc123</code> to every subsequent request to that domain.
+                The server looks up that identifier to recover who you are.</p>
+
+                <p>There are two broad styles. A <strong>server-side session</strong> stores the
+                real state in the server or a shared store (like Redis) and the cookie holds
+                only an opaque ID. A <strong>token-based</strong> approach (such as a JWT) puts
+                the signed state in the token itself, so the server can verify it without a
+                lookup, which keeps things stateless and scales more cleanly. Either way, the
+                protocol stays stateless; the state lives in what the client sends back.</p>
+
+                <h2>HTTP versions: 1.1 to 3</h2>
+
+                <p>HTTP's semantics (methods, status codes, headers) have stayed largely stable;
+                what has changed is how bytes move over the wire, and every step has been about
+                killing latency and head-of-line blocking.</p>
+
+                <h3>HTTP/1.0 and 1.1</h3>
+
+                <p>HTTP/1.0 opened a fresh TCP connection per request, paying the handshake cost
+                every time. HTTP/1.1 added <strong>persistent connections</strong> (keep-alive)
+                so a connection could be reused across requests. It also specified
+                <strong>pipelining</strong>, letting a client send several requests without
+                waiting for each response, but pipelining failed in practice: responses had to
+                come back in order, so one slow response stalled everything behind it. This is
+                <strong>head-of-line (HOL) blocking</strong> at the application layer. Browsers
+                worked around it by opening roughly six parallel TCP connections per origin.</p>
+
+                <h3>HTTP/2</h3>
+
+                <p>HTTP/2 replaced the text protocol with a <strong>binary framing</strong>
+                layer and introduced <strong>multiplexing</strong>: many independent streams
+                share a single TCP connection, with requests and responses interleaved as
+                frames. It added <strong>HPACK header compression</strong> (headers are
+                repetitive and were pure overhead) and a now largely deprecated
+                <strong>server push</strong>. Multiplexing fixes application-layer HOL blocking,
+                but there is a catch: HTTP/2 is <strong>still subject to TCP-level HOL
+                blocking</strong>. Because all streams share one TCP connection, a single lost
+                packet makes TCP hold back every stream until it is retransmitted, since TCP
+                guarantees an in-order byte stream and cannot tell that the streams are
+                independent.</p>
+
+                <h3>HTTP/3</h3>
+
+                <p>HTTP/3 fixes that by changing the transport underneath. It runs over
+                <strong>QUIC, which is built on UDP</strong> rather than TCP (QUIC was mentioned
+                in the <a href="tcp-and-udp.html">TCP &amp; UDP</a> note as rebuilding
+                reliability in user space). QUIC understands streams natively, so a lost packet
+                only stalls its own stream and the others keep flowing, finally eliminating
+                transport-level HOL blocking. QUIC also folds the transport and TLS handshakes
+                into one round trip (with 0-RTT resumption for repeat connections), so
+                connections start faster. The reliability, ordering, and congestion control that
+                TCP used to provide are reimplemented inside QUIC on top of UDP's bare
+                datagrams.</p>
+
+                <table>
+                    <thead>
+                        <tr><th></th><th>HTTP/1.1</th><th>HTTP/2</th><th>HTTP/3</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Transport</td><td>TCP</td><td>TCP</td><td>QUIC (UDP)</td></tr>
+                        <tr><td>Format</td><td>Text</td><td>Binary frames</td><td>Binary frames</td></tr>
+                        <tr><td>Multiplexing</td><td>No (1 request at a time)</td><td>Yes</td><td>Yes</td></tr>
+                        <tr><td>App-layer HOL blocking</td><td>Yes</td><td>No</td><td>No</td></tr>
+                        <tr><td>Transport HOL blocking</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+                        <tr><td>Header compression</td><td>No</td><td>HPACK</td><td>QPACK</td></tr>
+                    </tbody>
+                </table>
+
+                <p>The through-line: HTTP/2 solved blocking at the application layer but was
+                still held back by the very TCP guarantees that the
+                <a href="tcp-and-udp.html">TCP &amp; UDP</a> note describes, and HTTP/3 had to
+                drop down to UDP to solve it properly.</p>
+
+                <a href="./" class="note__back"><i class="uil uil-arrow-left"></i> All notes</a>
+            </article>
+        </section>
+    </main>
+
+    <!--==================== MAIN JS ====================-->
+    <script src="../Static/js/main.js"></script>
+</body>
+
+</html>
