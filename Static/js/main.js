@@ -61,14 +61,46 @@ const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'uil-mo
 if (selectedTheme) {
     document.body.classList[selectedTheme === 'dark' ? 'add': 'remove'](darkTheme);
     themeButton.classList[selectedIcon === 'uil-moon' ? 'add' : 'remove'](iconTheme);
+} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // No saved choice: follow the OS preference on first visit
+    document.body.classList.add(darkTheme);
+    themeButton.classList.add(iconTheme);
 }
 
 themeButton.addEventListener('click', ()=>{
     document.body.classList.toggle(darkTheme);
     themeButton.classList.toggle(iconTheme);
 
-    localStorage.setItem('selected-theme', getCurrentTheme);
-    localStorage.setItem('selected-icon', getCurrentIcon);
+    localStorage.setItem('selected-theme', getCurrentTheme());
+    localStorage.setItem('selected-icon', getCurrentIcon());
+});
+
+// Keyboard support: the toggle is an <i>, so activate it on Enter/Space
+themeButton.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        themeButton.click();
+    }
+});
+
+
+/*==================== ACTIVE LINK & HEADER SHADOW ON SCROLL ====================*/
+const sections = document.querySelectorAll('section[id]');
+const header = document.getElementById('header');
+
+window.addEventListener('scroll', () => {
+    const scrollY = window.pageYOffset;
+
+    sections.forEach(current => {
+        const sectionTop = current.offsetTop - 58;
+        const sectionId = current.getAttribute('id');
+        const link = document.querySelector('.nav__menu a[href*="' + sectionId + '"]');
+        if (!link) return; // not every section has a nav link
+        link.classList.toggle('active-link',
+            scrollY > sectionTop && scrollY <= sectionTop + current.offsetHeight);
+    });
+
+    header.classList.toggle('scroll-header', scrollY >= 80);
 });
 
 

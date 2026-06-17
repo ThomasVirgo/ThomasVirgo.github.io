@@ -4,6 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tom Virgo">
+    <meta name="description"
+        content="Tom Virgo, backend software engineer. I design, build and maintain highly available, high-throughput systems at scale. Cambridge MEng graduate, currently at Cover Genius.">
+
+    <!--==================== SOCIAL / OPEN GRAPH ====================-->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tom Virgo · Backend Software Engineer">
+    <meta property="og:description"
+        content="Backend engineer building highly available, high-throughput systems at scale.">
+    <meta property="og:image" content="https://thomasvirgo.github.io/Static/img/profile.png">
+    <meta property="og:url" content="https://thomasvirgo.github.io/">
+    <meta name="twitter:card" content="summary">
 
     <!--==================== ICONS ====================-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -16,7 +28,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./Static/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="./Static/favicon_io/site.webmanifest">
 
-    <title>Tom Virgo</title>
+    <title>Tom Virgo · Backend Software Engineer</title>
 </head>
 
 <body>
@@ -51,7 +63,8 @@
             </div>
 
             <div class="nav__btns">
-                <i class="uil uil-moon change-theme" id="theme-button"></i>
+                <i class="uil uil-moon change-theme" id="theme-button" role="button" tabindex="0"
+                    aria-label="Toggle dark mode"></i>
 
                 <div class="nav__toggle" id="nav-toggle">
                     <i class="uil uil-apps nav__icon"></i>
@@ -68,13 +81,14 @@
                 <div class="home__content grid">
                     <div class="home__social">
                         <a href="https://www.linkedin.com/in/thomas-virgo-4256701b8?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B7PubMUmnRiuf1ahxuNjTiA%3D%3D"
-                            class="home__social-icon" target="_blank">
+                            class="home__social-icon" target="_blank" rel="noopener" aria-label="LinkedIn">
                             <i class="uil uil-linkedin"></i>
                         </a>
-                        <a href="https://github.com/ThomasVirgo" class="home__social-icon" target="_blank">
+                        <a href="https://github.com/ThomasVirgo" class="home__social-icon" target="_blank"
+                            rel="noopener" aria-label="GitHub">
                             <i class="uil uil-github"></i>
                         </a>
-                        <a href="mailto:tomcvirgo@gmail.com" class="home__social-icon">
+                        <a href="mailto:tomcvirgo@gmail.com" class="home__social-icon" aria-label="Email">
                             <i class="uil uil-envelope"></i>
                         </a>
                     </div>
@@ -128,7 +142,7 @@
                         <i class="uil uil-database skills__icon"></i>
 
                         <div>
-                            <h1 class="skills__title">Backend</h1>
+                            <h3 class="skills__title">Backend</h3>
                             <span class="skills_subtitle"></span>
                         </div>
 
@@ -199,7 +213,7 @@
                         <i class="uil uil-brackets-curly skills__icon"></i>
 
                         <div>
-                            <h1 class="skills__title">Frontend</h1>
+                            <h3 class="skills__title">Frontend</h3>
                             <span class="skills_subtitle"></span>
                         </div>
 
@@ -239,7 +253,7 @@
                         <i class="uil uil-cog skills__icon"></i>
 
                         <div>
-                            <h1 class="skills__title">General</h1>
+                            <h3 class="skills__title">General</h3>
                             <span class="skills_subtitle"></span>
                         </div>
 
@@ -412,46 +426,94 @@
 
         <section class="section" id="experience">
             <h2 class="section__title">Experience</h2>
-            <span class="section__subtitle">What I've done as a backend engineer</span>
+            <span class="section__subtitle">Backend systems built for scale, reliability and measurable impact</span>
 
             <div class="container">
 
-                <div class="experience__container">
-                    <h3 class="experience__title">Cover Genius</h3>
-                    <ul class="experience__list">
-                        <li>Building and maintaining highly available, high throughput REST APIs handling over 10 million
-                            requests a day with a p99 latency under 500ms and 99.99% availability.</li>
-                    </ul>
-                </div>
+                <!-- Cover Genius -->
+                <article class="experience__container">
+                    <div class="experience__header">
+                        <div>
+                            <h3 class="experience__title">Cover Genius</h3>
+                            <span class="experience__role">Software Engineer</span>
+                        </div>
+                        <span class="experience__period">Jan 2026 - Present</span>
+                    </div>
 
-                <div class="experience__container">
-                    <h3 class="experience__title">iwoca</h3>
-                    <ul class="experience__list">
-                        <li>Worked extensively with Django, Celery and Postgres</li>
-                        <li>Reduced the repayments run runtime from 3.5 hours to 10 minutes.</li>
-                        <!-- instead of running for every customer, only run for customers who were due to date we expected payment to clear -->
-                        <li>Rebuilt the commissions system to use an event driven architecture, reducing the response
-                            time of broker payouts by 95%</li>
-                        <!-- instead of calculating commission for entire history each time, use a signal that triggers a celery task to write commission earned each time a customer was funded and then simply add the rows when payout broker -->
-                        <li>Built and maintained payment systems and APIs handling millions of pounds each day.
-                            Integrated with Stripe, Truelayer, Modulr, Checkout and Raisin 3rd party APIs.</li>
-                        <li>Led project to integrate Raisin bank as a new payment provider in Germany. Scoped, wrote and
-                            completed tickets, provided regular updates to stakeholders and delivered the project on
-                            time</li>
-                        <li>Created a CLI in Go that allowed developers to easily interact with celery tasks and our
-                            database, improving developer experience when on support</li>
-                        <li>Troubleshooted and fixed critical bugs</li>
-                    </ul>
-                </div>
+                    <div class="experience__stats">
+                        <div class="experience__stat">
+                            <span class="experience__stat-number">10M+</span>
+                            <span class="experience__stat-label">requests / day</span>
+                        </div>
+                        <div class="experience__stat">
+                            <span class="experience__stat-number">99.99%</span>
+                            <span class="experience__stat-label">availability</span>
+                        </div>
+                        <div class="experience__stat">
+                            <span class="experience__stat-number">&lt;500ms</span>
+                            <span class="experience__stat-label">p99 latency</span>
+                        </div>
+                    </div>
 
-                <div class="experience__container">
-                    <h3 class="experience__title">Apollo Tyres</h3>
                     <ul class="experience__list">
-                        <li>Built a machine learning RESNET model that detected defects in tyre xray
-                            images. Deployed the model on AWS using Sagemaker, lambda functions and API gateway.
-                            Frontend built with React.</li>
+                        <li>Design and operate high-throughput REST APIs at the core of a global insurtech platform,
+                            keeping them fast and dependable under heavy load.</li>
                     </ul>
-                </div>
+                </article>
+
+                <!-- iwoca -->
+                <article class="experience__container">
+                    <div class="experience__header">
+                        <div>
+                            <h3 class="experience__title">iwoca</h3>
+                            <span class="experience__role">Backend Engineer</span>
+                        </div>
+                        <span class="experience__period">May 2022 - Jan 2026</span>
+                    </div>
+
+                    <div class="experience__tags">
+                        <span class="experience__tag">Django</span>
+                        <span class="experience__tag">Celery</span>
+                        <span class="experience__tag">PostgreSQL</span>
+                        <span class="experience__tag">Go</span>
+                    </div>
+
+                    <ul class="experience__list">
+                        <li>Cut the daily repayments run from <span class="experience__highlight">3.5 hours to 10
+                                minutes</span> by processing only customers due on the expected clearing date.</li>
+                        <li>Re-architected broker commissions around an event-driven model, reducing payout response
+                            times by <span class="experience__highlight">95%</span>.</li>
+                        <li>Owned payment systems and APIs moving <span class="experience__highlight">millions of pounds
+                                daily</span>, integrating Stripe, TrueLayer, Modulr, Checkout.com and Raisin.</li>
+                        <li>Led the integration of Raisin as a new payment provider in Germany: scoped the work,
+                            delivered end to end and shipped on time while keeping stakeholders aligned.</li>
+                        <li>Built a Go CLI for interacting with Celery tasks and the database, improving the on-call
+                            developer experience.</li>
+                    </ul>
+                </article>
+
+                <!-- Apollo Tyres -->
+                <article class="experience__container">
+                    <div class="experience__header">
+                        <div>
+                            <h3 class="experience__title">Apollo Tyres</h3>
+                            <span class="experience__role">Data Scientist</span>
+                        </div>
+                        <span class="experience__period">Oct 2021 - May 2022</span>
+                    </div>
+
+                    <div class="experience__tags">
+                        <span class="experience__tag">AWS SageMaker</span>
+                        <span class="experience__tag">Lambda</span>
+                        <span class="experience__tag">API Gateway</span>
+                        <span class="experience__tag">React</span>
+                    </div>
+
+                    <ul class="experience__list">
+                        <li>Built and deployed a ResNet model that detects defects in tyre X-ray images, served on AWS
+                            (SageMaker, Lambda, API Gateway) with a React frontend.</li>
+                    </ul>
+                </article>
             </div>
         </section>
 
@@ -509,15 +571,16 @@
                 </ul>
 
                 <div class="footer__socials">
-                    <a target="_blank"
+                    <a target="_blank" rel="noopener" aria-label="LinkedIn"
                         href="https://www.linkedin.com/in/thomas-virgo-4256701b8?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B7PubMUmnRiuf1ahxuNjTiA%3D%3D"
                         class="footer__social">
                         <i class="uil uil-linkedin"></i>
                     </a>
-                    <a href="https://github.com/ThomasVirgo" target="_blank" class="footer__social">
+                    <a href="https://github.com/ThomasVirgo" target="_blank" rel="noopener" aria-label="GitHub"
+                        class="footer__social">
                         <i class="uil uil-github"></i>
                     </a>
-                    <a href="mailto:tomcvirgo@gmail.com" target="_blank" class="footer__social">
+                    <a href="mailto:tomcvirgo@gmail.com" aria-label="Email" class="footer__social">
                         <i class="uil uil-envelope"></i>
                     </a>
                 </div>
