@@ -1,0 +1,10 @@
+- [x] internet protocol
+- [x] TCP & UDP
+- [ ] HTTP, and HTTP methods 
+- [ ] Django deepdive into transactions and idempotency
+- [ ] Docker and Kubernetes
+- [ ] The path of a web request, DNS, reverse proxy etc.
+- [ ] Rest APIs and rest API best practices
+- [ ] Postgres query optimisation and identifying slow queries
+- [ ] Postgres locking, adding concurrent indexes, and deadlocks
+- [ ] NoSQL vs SQL databases
