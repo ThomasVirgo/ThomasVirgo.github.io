@@ -77,55 +77,44 @@
     <main class="main">
         <!--==================== HOME ====================-->
         <section class="home section" id="home">
-            <div class="home__container container grid">
-                <div class="home__content grid">
-                    <div class="home__social">
-                        <a href="https://www.linkedin.com/in/thomas-virgo-4256701b8?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B7PubMUmnRiuf1ahxuNjTiA%3D%3D"
-                            class="home__social-icon" target="_blank" rel="noopener" aria-label="LinkedIn">
-                            <i class="uil uil-linkedin"></i>
-                        </a>
-                        <a href="https://github.com/ThomasVirgo" class="home__social-icon" target="_blank"
-                            rel="noopener" aria-label="GitHub">
-                            <i class="uil uil-github"></i>
-                        </a>
-                        <a href="mailto:tomcvirgo@gmail.com" class="home__social-icon" aria-label="Email">
-                            <i class="uil uil-envelope"></i>
-                        </a>
-                    </div>
-
-                    <div class="home__img">
-                        <svg class='home__blob' viewBox="0 0 200 187" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <mask id="mask0" mask-type="alpha">
-                                <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 
-                                    130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 
-                                    97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 
-                                    0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
-                            </mask>
-                            <g mask="url(#mask0)">
-                                <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 
-                                    165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
-                                    129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
-                                    -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z" />
-                                <image class="home__blob-img" x='23' y='-35' xlink:href="Static/img/profile.png" />
-                            </g>
-                        </svg>
-                    </div>
-
-                    <div class="home__data">
-                        <h1 class="home__title">Hi, I'm Tom</h1>
-                        <h3 class="home__subtitle">Backend Software Engineer</h3>
-                        <p class="home__description">I am a first class Cambridge University graduate (MEng), and a
-                            software engineer at global insurtech Cover Genius. I design, build and maintain highly
-                            available, reliable systems that operate at scale.
-                        </p>
-                        <a href="#contact" class="button button--flex">
-                            Contact Me<i class="uil uil-message button__icon"></i>
-                        </a>
+            <div class="home__container container">
+                <div class="home__header">
+                    <span class="home__avatar">
+                        <img src="Static/img/profile.png" alt="Tom Virgo">
+                    </span>
+                    <div>
+                        <h1 class="home__title">Tom Virgo</h1>
+                        <p class="home__subtitle">Backend Software Engineer</p>
                     </div>
                 </div>
-            </div>
 
+                <p class="home__description">I design, build and operate highly available,
+                    high-throughput systems at scale. First class Cambridge MEng, currently a
+                    software engineer at global insurtech Cover Genius.</p>
+
+                <dl class="home__meta">
+                    <div class="home__meta-row">
+                        <dt>role</dt>
+                        <dd>backend software engineer</dd>
+                    </div>
+                    <div class="home__meta-row">
+                        <dt>region</dt>
+                        <dd>sydney, australia</dd>
+                    </div>
+                    <div class="home__meta-row">
+                        <dt>focus</dt>
+                        <dd>high-throughput, reliable systems</dd>
+                    </div>
+                </dl>
+
+                <div class="home__social">
+                    <a href="https://www.linkedin.com/in/thomas-virgo-4256701b8?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B7PubMUmnRiuf1ahxuNjTiA%3D%3D"
+                        class="home__social-link" target="_blank" rel="noopener">linkedin</a>
+                    <a href="https://github.com/ThomasVirgo" class="home__social-link" target="_blank"
+                        rel="noopener">github</a>
+                    <a href="mailto:tomcvirgo@gmail.com" class="home__social-link">email</a>
+                </div>
+            </div>
         </section>
 
 
@@ -201,7 +190,7 @@
 
                         <div class="skills__data">
                             <div class="skills__titles">
-                                <h3 class="skills__name">Rust (basic knowledge)</h3>
+                                <h3 class="skills__name">Rust</h3>
                             </div>
                         </div>
                     </div>
@@ -453,6 +442,11 @@
                             <span class="experience__stat-number">&lt;500ms</span>
                             <span class="experience__stat-label">p99 latency</span>
                         </div>
+                    </div>
+
+                    <div class="experience__tags">
+                        <span class="experience__tag">Django</span>
+                        <span class="experience__tag">PostgreSQL</span>
                     </div>
 
                     <ul class="experience__list">
