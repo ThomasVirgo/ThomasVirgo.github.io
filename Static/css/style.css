@@ -154,7 +154,7 @@ img {
 
 /* section headers read like shell paths: ~/experience */
 .section__title {
-    width: min(100% - 3rem, 768px);
+    width: min(100%, 768px);
     margin-inline: auto;
     font-family: var(--font-mono);
     font-size: var(--h2-font-size);
@@ -170,7 +170,7 @@ img {
 
 .section__subtitle {
     display: block;
-    width: min(100% - 3rem, 768px);
+    width: min(100%, 768px);
     margin: .35rem auto var(--mb-3);
     font-family: var(--font-mono);
     font-size: var(--small-font-size);
@@ -178,10 +178,14 @@ img {
 }
 
 /*==================== LAYOUT ====================*/
+/* mobile gutter for everything in-page; centered children inherit it */
+.main {
+    padding-inline: var(--mb-1-5);
+}
+
 .container {
     max-width: 768px;
-    margin-left: var(--mb-1-5);
-    margin-right: var(--mb-1-5);
+    margin-inline: auto;
 }
 
 .grid {
@@ -734,7 +738,7 @@ img {
 
 .footer__bg {
     background-color: var(--footer-bg);
-    padding: 2.5rem 0 3rem;
+    padding: 2.5rem var(--mb-1-5) 3rem;
 }
 
 .footer__container {
@@ -952,9 +956,8 @@ img {
 
 /*==================== MEDIA QUERIES ====================*/
 @media screen and (max-width: 350px) {
-    .container {
-        margin-left: var(--mb-1);
-        margin-right: var(--mb-1);
+    .main {
+        padding-inline: var(--mb-1);
     }
 
     .nav__menu {
@@ -971,11 +974,6 @@ img {
 }
 
 @media screen and (min-width: 768px) {
-    .container {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
     body {
         margin: 0;
     }
