@@ -24,3 +24,4 @@
 - [ ] Auth, sessions, jwts, single sign on, 2FA
 - [ ] MCPs
 - [ ] 4 types of SQL joins
+- [ ] database migrations in production, concurrent indexes, different types of postgres locks
