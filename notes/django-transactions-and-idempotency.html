@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--==================== ICONS ====================-->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!--==================== CSS ====================-->
+    <link rel="stylesheet" href="../Static/css/style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../Static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../Static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Static/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="../Static/favicon_io/site.webmanifest">
+
+    <title>Django Transactions &amp; Idempotency | Tom Virgo</title>
+</head>
+
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="../index.html" class="nav__logo">Tom Virgo</a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list grid">
+                    <li class="nav__item">
+                        <a href="../index.html#home" class="nav__link">
+                            <i class="uil uil-home nav__icon"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="../index.html#skills" class="nav__link">
+                            <i class="uil uil-file-alt nav__icon"></i> Skills
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="./" class="nav__link">
+                            <i class="uil uil-notes nav__icon"></i> Notes
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="../index.html#contact" class="nav__link">
+                            <i class="uil uil-envelope nav__icon"></i> Contact Me
+                        </a>
+                    </li>
+                </ul>
+                <i class="uil uil-times nav__close nav__icon" id="nav-close"></i>
+            </div>
+
+            <div class="nav__btns">
+                <i class="uil uil-moon change-theme" id="theme-button"></i>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="uil uil-apps nav__icon"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <section class="section" style="padding-top: 6rem;">
+            <article class="note container">
+                <a href="./" class="note__back"><i class="uil uil-arrow-left"></i> All notes</a>
+
+                <h1>Django Transactions &amp; Idempotency</h1>
+
+                <p>These two topics belong together. Transactions are how the database
+                lets you group writes so they all happen or none of them do. Idempotency
+                is the property that lets a client safely retry a request without causing
+                damage. In a real backend they meet at exactly the point that hurts most:
+                a payment that must be recorded once, even when the network, the browser,
+                or a task queue tries to make it happen twice. This note covers Django's
+                transaction machinery first, then uses it to build an idempotent
+                <code>POST /orders</code> endpoint.</p>
+
+                <h2>Part 1: Transactions in Django</h2>
+
+                <h3>Autocommit is the default</h3>
+
+                <p>Out of the box Django runs in autocommit mode. Every ORM write is
+                wrapped in its own transaction and committed immediately, so two saves
+                are two independent transactions:</p>
+
+                <pre><code>order.status = "paid"
+order.save()            # commit 1
+customer.balance -= 100
+customer.save()         # commit 2</code></pre>
+
+                <p>If the process dies between the two saves, the order is marked paid but
+                the balance is never debited. That is the problem transactions exist to
+                solve.</p>
+
+                <h3>transaction.atomic()</h3>
+
+                <p><code>transaction.atomic()</code> opens a transaction and commits it
+                when the block exits cleanly, or rolls it back if an exception propagates
+                out. It works as a context manager or a decorator:</p>
+
+                <pre><code>from django.db import transaction
+
+with transaction.atomic():
+    order.status = "paid"
+    order.save()
+    customer.balance -= 100
+    customer.save()
+    # both writes commit together, or neither does
+
+
+@transaction.atomic
+def settle(order, customer):
+    ...</code></pre>
+
+                <h3>Nesting creates savepoints, not real transactions</h3>
+
+                <p>Databases do not have true nested transactions. When you nest
+                <code>atomic()</code> blocks, the outer block is the real transaction and
+                each inner block is a <strong>savepoint</strong>: a marker you can roll
+                back to without discarding the whole transaction. An inner block failing
+                rolls back to its savepoint; the outer block can catch that and still
+                commit everything else.</p>
+
+                <pre><code>with transaction.atomic():          # outer: real transaction
+    create_order()
+    with transaction.atomic():      # inner: savepoint
+        risky_write()               # rolls back to the savepoint on error</code></pre>
+
+                <p>This is the mechanism behind the most important idempotency gotcha
+                below, so keep it in mind.</p>
+
+                <h3>ATOMIC_REQUESTS</h3>
+
+                <p>Set <code>ATOMIC_REQUESTS</code> on a database and Django wraps every
+                view in a transaction: the request commits if the view returns normally
+                and rolls back if it raises.</p>
+
+                <pre><code>DATABASES = {
+    "default": {
+        # ...
+        "ATOMIC_REQUESTS": True,
+    }
+}</code></pre>
+
+                <p>It is a blunt instrument. The transaction is held open for the entire
+                request, including slow template rendering or external API calls, which
+                lengthens how long locks are held. It also fights with anything that needs
+                to commit mid-request. Prefer explicit <code>atomic()</code> blocks around
+                the writes that actually need them.</p>
+
+                <h3>Locking rows with select_for_update()</h3>
+
+                <p>When two requests read the same row, change it, and write it back, one
+                update can silently clobber the other. <code>select_for_update()</code>
+                takes a row-level lock so the second reader blocks until the first
+                transaction commits. It must run inside an <code>atomic()</code> block,
+                because the lock is released at commit time.</p>
+
+                <pre><code>with transaction.atomic():
+    account = Account.objects.select_for_update().get(pk=pk)
+    account.balance -= 100      # no other transaction can touch this row yet
+    account.save()</code></pre>
+
+                <h3>Running code after commit with on_commit()</h3>
+
+                <p>A classic bug: a view saves an order, fires a Celery task to email a
+                receipt, and the task runs before (or instead of) the commit. If the
+                transaction later rolls back, you have emailed a receipt for an order that
+                does not exist. Or the worker picks up the task before the row is visible
+                and gets a <code>DoesNotExist</code>. <code>transaction.on_commit()</code>
+                defers a callback until the transaction actually commits, and skips it
+                entirely on rollback.</p>
+
+                <pre><code>with transaction.atomic():
+    order.save()
+    transaction.on_commit(lambda: send_receipt.delay(order.id))
+# send_receipt is queued only if this transaction commits</code></pre>
+
+                <h3>A word on isolation levels</h3>
+
+                <p>Isolation level controls what one transaction sees of another's
+                in-flight work. On Postgres the default is <code>READ COMMITTED</code>:
+                each statement sees rows committed before it started, so you can get
+                different results from two reads in the same transaction if someone
+                commits in between. Stricter levels (<code>REPEATABLE READ</code>,
+                <code>SERIALIZABLE</code>) trade throughput for fewer anomalies and can
+                raise serialization errors you must retry. For most Django apps the
+                default plus targeted <code>select_for_update()</code> is enough; reach
+                for higher isolation only when you have a specific anomaly to prevent.</p>
+
+                <h2>Part 2: Idempotency</h2>
+
+                <h3>What idempotent means</h3>
+
+                <p>An operation is idempotent if applying it once and applying it many
+                times have the same effect. Setting a value to <code>5</code> is
+                idempotent; adding <code>5</code> is not. In HTTP the spec already labels
+                methods this way: <code>GET</code>, <code>PUT</code>, and
+                <code>DELETE</code> are idempotent, and <code>POST</code> is not, because
+                two POSTs are meant to create two resources. That is precisely why POST
+                endpoints are the ones that need help.</p>
+
+                <h3>Why it matters</h3>
+
+                <p>You cannot avoid retries. A client whose connection drops after the
+                server committed, but before the response arrived, has no way to know the
+                write succeeded, so it retries. A user double-clicks the pay button. An
+                at-least-once task queue redelivers a message. Every one of these can turn
+                a single intended charge into two real ones. Idempotency is what makes
+                "just retry it" a safe default instead of a way to double-bill customers.</p>
+
+                <h3>The idempotency-key pattern</h3>
+
+                <p>The client generates a unique key for the operation (a UUID) and sends
+                it, usually as an <code>Idempotency-Key</code> header. The server records
+                that key against the work it did. If the same key arrives again, the
+                server recognises the replay and returns the original result instead of
+                repeating the work. The retry has to carry the <em>same</em> key, which is
+                why the client generates it, not the server.</p>
+
+                <h3>Approach 1: a unique constraint (recommended)</h3>
+
+                <p>The simplest robust version puts a unique constraint on the key and
+                lets the database enforce dedup. Store the key on the resource itself:</p>
+
+                <pre><code>class Order(models.Model):
+    idempotency_key = models.CharField(max_length=255, unique=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    # ...</code></pre>
+
+                <p>The view wraps the write in <code>atomic()</code> and relies on the
+                unique constraint to reject the second attempt with an
+                <code>IntegrityError</code>. On a replay, the row already exists, so you
+                fetch and return it:</p>
+
+                <pre><code>from django.db import IntegrityError, transaction
+from django.http import JsonResponse
+
+def create_order(request):
+    key = request.headers["Idempotency-Key"]
+    try:
+        with transaction.atomic():
+            order = Order.objects.create(idempotency_key=key, amount=amount)
+            transaction.on_commit(lambda: charge_customer.delay(order.id))
+    except IntegrityError:
+        # key already used: the order exists, return it instead of recreating
+        order = Order.objects.get(idempotency_key=key)
+    return JsonResponse({"id": order.id})</code></pre>
+
+                <p>The database, not your application code, is the source of truth for "has
+                this happened before". There is no check-then-insert race window, because
+                the uniqueness check and the insert are the same atomic operation.</p>
+
+                <h3>Approach 2: a dedicated key table</h3>
+
+                <p>The unique constraint dedups the write but does not remember the exact
+                response you sent. When a client needs the identical response body on
+                replay (the same generated fields, the same status code), store it against
+                the key in its own table:</p>
+
+                <pre><code>class IdempotencyKey(models.Model):
+    key = models.CharField(max_length=255, unique=True)
+    response_body = models.JSONField()
+    status_code = models.PositiveSmallIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)</code></pre>
+
+                <p>At the top of the view you look up the key; a hit returns the stored
+                response immediately, a miss does the work and records the response before
+                returning. It is more moving parts, so reach for it only when replaying
+                the exact response actually matters. For most endpoints, Approach 1 is
+                enough.</p>
+
+                <h3>Gotchas</h3>
+
+                <p><strong>Catching IntegrityError inside atomic() is a trap.</strong>
+                Once any database error fires inside an <code>atomic()</code> block, the
+                transaction is already marked for rollback. Catching the exception does
+                not un-break it: the next query in that block raises
+                <code>TransactionManagementError</code>. Catch it <em>outside</em> the
+                block (as in Approach 1), or wrap just the risky write in a nested
+                <code>atomic()</code> so only the savepoint rolls back and the outer
+                transaction survives:</p>
+
+                <pre><code>with transaction.atomic():
+    write_audit_log()               # want to keep this
+    try:
+        with transaction.atomic():  # savepoint around the risky insert
+            Order.objects.create(idempotency_key=key, amount=amount)
+    except IntegrityError:
+        order = Order.objects.get(idempotency_key=key)
+    # outer transaction is still valid and commits the audit log</code></pre>
+
+                <p><strong>on_commit callbacks are silent when the transaction rolls
+                back, and in tests.</strong> That is the point on rollback, but it
+                surprises people writing tests: Django's <code>TestCase</code> wraps each
+                test in a transaction that never commits, so <code>on_commit</code>
+                callbacks never fire. Use
+                <code>TestCase.captureOnCommitCallbacks(execute=True)</code> to run them,
+                or a <code>TransactionTestCase</code>.</p>
+
+                <p><strong>select_for_update() only works inside a transaction.</strong>
+                In autocommit mode there is no open transaction to hold the lock, so
+                Django raises <code>TransactionManagementError</code>. Always put it
+                inside an <code>atomic()</code> block.</p>
+
+                <p>Put together, the rule of thumb is: wrap related writes in
+                <code>atomic()</code>, let a unique constraint enforce idempotency, catch
+                the resulting <code>IntegrityError</code> outside the block, and defer
+                side effects to <code>on_commit()</code> so they only happen when the work
+                actually stuck.</p>
+
+                <a href="./" class="note__back"><i class="uil uil-arrow-left"></i> All notes</a>
+            </article>
+        </section>
+    </main>
+
+    <!--==================== MAIN JS ====================-->
+    <script src="../Static/js/main.js"></script>
+</body>
+
+</html>

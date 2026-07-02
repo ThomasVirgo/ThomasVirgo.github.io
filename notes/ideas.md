@@ -1,7 +1,7 @@
 - [x] internet protocol
 - [x] TCP & UDP
 - [x] HTTP, and HTTP methods 
-- [ ] Django deepdive into transactions and idempotency
+- [x] Django deepdive into transactions and idempotency
 - [ ] Docker and Kubernetes
 - [ ] The path of a web request, DNS, reverse proxy etc.
 - [ ] Rest APIs and rest API best practices
